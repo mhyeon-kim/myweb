@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>김미현 | Backend & Systems Portfolio</title>
     
+    <!-- -->
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -27,25 +28,34 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* 페이지 전환을 위한 부드러운 애니메이션 효과 */
+        /* 페이지 전환 및 동적 탭 애니메이션 */
         .page-view {
             transition: opacity 0.25s ease-in-out;
         }
-        /* 스킬 태그 전환을 위한 트랜지션 */
         .skill-tab-pane {
             transition: all 0.3s ease-in-out;
+        }
+        /* 알림 토스트 기본 숨김 및 애니메이션 */
+        .toast-notify {
+            transform: translate(-50%, 20px);
+            opacity: 0;
+            transition: all 0.3s ease-in-out;
+        }
+        .toast-notify.show {
+            transform: translate(-50%, 0);
+            opacity: 1;
         }
     </style>
 </head>
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 font-sans flex flex-col min-h-screen transition-colors duration-300">
 
+    <!-- -->
     <!-- 2-2. 공통 네비게이션 바 컴포넌트 -->
     <header class="fixed top-0 left-0 w-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-md shadow-md z-50 border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
         <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#home" class="text-2xl font-extrabold text-blue-600 dark:text-blue-500 tracking-wider">I AM.</a>
             <div class="flex items-center space-x-6">
                 <nav id="nav-menu" class="flex space-x-6">
-                    <!-- 현재 페이지 활성화 하이라이트는 JavaScript에서 동적으로 제어됩니다 -->
                     <a href="#home" data-route="home" class="nav-link text-sm font-semibold py-1 transition-colors duration-200">About</a>
                     <a href="#education" data-route="education" class="nav-link text-sm font-semibold py-1 transition-colors duration-200">Education</a>
                     <a href="#activities" data-route="activities" class="nav-link text-sm font-semibold py-1 transition-colors duration-200">Activities</a>
@@ -61,6 +71,7 @@
     <!-- MPA 가상 페이지 컨테이너 목록 -->
     <main class="flex-grow pt-16">
 
+        <!-- -->
         <!-- ================= PAGE 1: HOME & ABOUT ================= -->
         <section id="page-home" class="page-view block">
             <!-- 히어로 섹션 (Hero Section) -->
@@ -86,8 +97,8 @@
                     About Me
                 </h2>
                 <div class="flex flex-col md:flex-row gap-12 items-center md:items-start">
-                    <!-- 아바타 플레이스홀더 이미지 대체 영역 -->
-                    <div class="flex-shrink-0 w-44 h-44 bg-gradient-to-tr from-slate-200 to-slate-300 dark:from-slate-800 dark:to-slate-700 rounded-3xl flex items-center justify-center text-slate-500 dark:text-slate-400 shadow-inner">
+                    <!-- 아바타 이미지 영역 -->
+                    <div class="flex-shrink-0 w-44 h-44 bg-gradient-to-tr from-blue-100 to-blue-200 dark:from-slate-800 dark:to-slate-700 rounded-3xl flex items-center justify-center text-blue-600 dark:text-blue-450 shadow-inner">
                         <i class="fas fa-laptop-code text-6xl"></i>
                     </div>
                     <!-- 프로필 상세 정보 -->
@@ -98,6 +109,7 @@
                             단순 기능 구현을 넘어 원활한 소통 프로세스를 구축하고 성능을 점진적으로 개선해 나가는 보람을 배우고 있습니다.
                         </p>
                         
+                        <!-- -->
                         <!-- 핵심 요약 정보 및 역량 기술 스택 탭 시스템 -->
                         <div class="bg-slate-100 dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 rounded-2xl p-6 shadow-sm transition-colors duration-300">
                             <h3 class="text-md font-bold text-slate-800 dark:text-slate-200 mb-4 tracking-wide uppercase flex items-center">
@@ -116,7 +128,7 @@
                                     Database
                                 </button>
                                 <button onclick="switchSkillTab('infra')" id="tab-btn-infra" class="skill-tab-btn py-2 px-4 text-xs font-bold border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 tracking-wide focus:outline-none transition-all duration-200">
-                                    Cloud & Infra
+                                    Cloud & Tools
                                 </button>
                             </div>
 
@@ -124,7 +136,7 @@
                             <div class="min-h-[80px]">
                                 <!-- Backend Tab Panel -->
                                 <div id="tab-pane-backend" class="skill-tab-pane block opacity-100">
-                                    <span class="text-[11px] font-bold text-slate-400 dark:text-slate-500 block mb-2 uppercase">Backend & Web Frameworks</span>
+                                    <span class="text-[11px] font-bold text-slate-400 dark:text-slate-550 block mb-2 uppercase">Backend & Web Frameworks</span>
                                     <div class="flex flex-wrap gap-2">
                                         <span class="bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/50 text-blue-700 dark:text-blue-300 text-xs font-bold px-3 py-1.5 rounded-md shadow-sm">Spring Boot</span>
                                         <span class="bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/50 text-emerald-700 dark:text-emerald-300 text-xs font-bold px-3 py-1.5 rounded-md shadow-sm">FastAPI</span>
@@ -135,18 +147,18 @@
 
                                 <!-- Frontend & Apps Panel -->
                                 <div id="tab-pane-frontend" class="skill-tab-pane hidden opacity-0">
-                                    <span class="text-[11px] font-bold text-slate-400 dark:text-slate-500 block mb-2 uppercase">Client Platforms</span>
+                                    <span class="text-[11px] font-bold text-slate-400 dark:text-slate-550 block mb-2 uppercase">Client Platforms</span>
                                     <div class="flex flex-wrap gap-2">
                                         <span class="bg-cyan-50 dark:bg-cyan-950/40 border border-cyan-200 dark:border-cyan-900/50 text-cyan-700 dark:text-cyan-300 text-xs font-bold px-3 py-1.5 rounded-md shadow-sm">React</span>
                                         <span class="bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-900/50 text-indigo-700 dark:text-indigo-300 text-xs font-bold px-3 py-1.5 rounded-md shadow-sm">Kotlin (Android)</span>
                                         <span class="bg-orange-50 dark:bg-orange-950/40 border border-orange-200 dark:border-orange-900/50 text-orange-700 dark:text-orange-300 text-xs font-bold px-3 py-1.5 rounded-md shadow-sm">Unity</span>
-                                        <span class="bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/50 text-rose-700 dark:text-rose-300 text-xs font-bold px-3 py-1.5 rounded-md shadow-sm">Lua Scripting</span>
+                                        <span class="bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/50 text-rose-700 dark:text-rose-300 text-xs font-bold px-3 py-1.5 rounded-md shadow-sm">Lua Script</span>
                                     </div>
                                 </div>
 
                                 <!-- Database Panel -->
                                 <div id="tab-pane-database" class="skill-tab-pane hidden opacity-0">
-                                    <span class="text-[11px] font-bold text-slate-400 dark:text-slate-500 block mb-2 uppercase">Relational DBMS</span>
+                                    <span class="text-[11px] font-bold text-slate-400 dark:text-slate-550 block mb-2 uppercase">Relational DBMS</span>
                                     <div class="flex flex-wrap gap-2">
                                         <span class="bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold px-3 py-1.5 rounded-md shadow-sm">MySQL</span>
                                         <span class="bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold px-3 py-1.5 rounded-md shadow-sm">MariaDB</span>
@@ -156,12 +168,15 @@
 
                                 <!-- Cloud & Infra Panel -->
                                 <div id="tab-pane-infra" class="skill-tab-pane hidden opacity-0">
-                                    <span class="text-[11px] font-bold text-slate-400 dark:text-slate-500 block mb-2 uppercase">Infrastructure & Automation</span>
+                                    <span class="text-[11px] font-bold text-slate-400 dark:text-slate-550 block mb-2 uppercase">Infrastructure & Collaboration Tools</span>
                                     <div class="flex flex-wrap gap-2">
-                                        <span class="bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold px-3 py-1.5 rounded-md shadow-sm">AWS (EC2/RDS/VPC/S3)</span>
+                                        <span class="bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold px-3 py-1.5 rounded-md shadow-sm">AWS (EC2/S3/VPC)</span>
                                         <span class="bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold px-3 py-1.5 rounded-md shadow-sm">Docker</span>
                                         <span class="bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold px-3 py-1.5 rounded-md shadow-sm">GitHub Actions</span>
-                                        <span class="bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold px-3 py-1.5 rounded-md shadow-sm">OpenCV</span>
+                                        <span class="bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold px-3 py-1.5 rounded-md shadow-sm">Git & GitHub</span>
+                                        <span class="bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold px-3 py-1.5 rounded-md shadow-sm">IntelliJ IDEA</span>
+                                        <span class="bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold px-3 py-1.5 rounded-md shadow-sm">Postman</span>
+                                        <span class="bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold px-3 py-1.5 rounded-md shadow-sm">Slack & Jira & Notion</span>
                                     </div>
                                 </div>
                             </div>
@@ -169,10 +184,103 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- -->
+                <!-- 개발자로서의 3가지 핵심 강점 -->
+                <div class="mt-16">
+                    <h3 class="text-xl font-extrabold text-slate-900 dark:text-slate-100 text-center mb-8 flex items-center justify-center">
+                        <i class="fas fa-award text-blue-600 dark:text-blue-400 mr-2"></i> 핵심 지향 가치 및 강점
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- 강점 1 -->
+                        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200/60 dark:border-slate-800/80 shadow-sm hover:shadow-md transition-all duration-300">
+                            <div class="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xl mb-4">
+                                <i class="fas fa-project-diagram"></i>
+                            </div>
+                            <h4 class="font-bold text-slate-900 dark:text-slate-100 mb-2">구조적 아키텍처 설계</h4>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                                Spring Boot와 FastAPI 연계를 조율하며 트래픽 분산과 경량화된 구조 설계의 즐거움을 탐구합니다.
+                            </p>
+                        </div>
+                        <!-- 강점 2 -->
+                        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200/60 dark:border-slate-800/80 shadow-sm hover:shadow-md transition-all duration-300">
+                            <div class="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl mb-4">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <h4 class="font-bold text-slate-900 dark:text-slate-100 mb-2">데이터 무결성 지향</h4>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                                SQLD 자격 보유자로서 정규화된 DB 설계 및 안정적인 결제-트랜잭션 롤백 설계를 실천합니다.
+                            </p>
+                        </div>
+                        <!-- 강점 3 -->
+                        <div class="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200/60 dark:border-slate-800/80 shadow-sm hover:shadow-md transition-all duration-300">
+                            <div class="w-12 h-12 rounded-xl bg-purple-50 dark:bg-purple-950/40 text-purple-600 dark:text-purple-400 flex items-center justify-center text-xl mb-4">
+                                <i class="fas fa-users-cog"></i>
+                            </div>
+                            <h4 class="font-bold text-slate-900 dark:text-slate-100 mb-2">주도적인 소통과 리드</h4>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                                다수의 한이음 공모전 팀장을 역임하며 기획/클라이언트 팀과의 유연한 개발 조율을 주도해 왔습니다.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- -->
+                <!-- 소셜 링크 및 Contact 영역 -->
+                <div class="mt-16 border-t border-slate-200 dark:border-slate-800/80 pt-16 grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mb-6 flex items-center">
+                            <i class="fas fa-address-book text-blue-500 mr-2"></i> Contact & Channels
+                        </h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6">
+                            협업 제안이나 포트폴리오에 대한 피드백은 언제든 환영합니다. 아래 채널을 클릭해 직접 연결하실 수 있습니다.
+                        </p>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between p-4 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/60 dark:border-slate-800/80">
+                                <span class="text-sm font-semibold text-slate-600 dark:text-slate-300 flex items-center">
+                                    <i class="fas fa-envelope text-blue-500 mr-2.5"></i> lovelypsent@gmail.com
+                                </span>
+                                <button onclick="copyToClipboard('email@example.com')" class="text-xs bg-slate-100 dark:bg-slate-800 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 px-3 py-1.5 rounded-lg font-bold transition-all duration-200">
+                                    복사하기
+                                </button>
+                            </div>
+                            <div class="flex gap-3">
+                                <a href="https://github.com/mhyeon-kim" target="_blank" class="flex-1 p-4 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/60 dark:border-slate-800/80 hover:border-blue-500 dark:hover:border-blue-500 flex items-center justify-center gap-2 font-bold text-sm transition-all duration-200">
+                                    <i class="fab fa-github text-lg"></i> GitHub
+                                </a>
+                                <a href="https://velog.io" target="_blank" class="flex-1 p-4 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/60 dark:border-slate-800/80 hover:border-blue-500 dark:hover:border-blue-500 flex items-center justify-center gap-2 font-bold text-sm transition-all duration-200">
+                                    <i class="fas fa-blog text-lg text-emerald-500"></i> Blog
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 실시간 로컬 방명록 컴포넌트 -->
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mb-6 flex items-center">
+                            <i class="fas fa-comment-dots text-emerald-500 mr-2"></i> 방명록 (Guestbook)
+                        </h3>
+                        <form id="guestbook-form" onsubmit="addComment(event)" class="space-y-3">
+                            <div class="flex gap-2">
+                                <input type="text" id="gb-name" required placeholder="작성자 이름" class="w-1/3 px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-300">
+                                <input type="text" id="gb-comment" required placeholder="따뜻한 한마디를 남겨주세요." class="w-2/3 px-3 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-300">
+                            </div>
+                            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-xl text-sm transition-all duration-200 shadow-md">
+                                작성 완료
+                            </button>
+                        </form>
+                        <!-- 방명록 리스트 목록 -->
+                        <div id="guestbook-list" class="mt-4 max-h-[160px] overflow-y-auto space-y-2 pr-1">
+                            <!-- JS를 통해 동적 삽입 -->
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
 
+        <!-- -->
         <!-- ================= PAGE 2: EDUCATION & CREDENTIALS ================= -->
         <section id="page-education" class="page-view hidden max-w-4xl mx-auto py-16 px-6">
             <h2 class="text-3xl font-extrabold text-slate-900 dark:text-slate-100 text-center relative mb-12 pb-3 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-12 after:h-1 after:bg-blue-600 after:rounded">
@@ -186,7 +294,7 @@
                 </div>
                 <div>
                     <h3 class="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-1">동덕여자대학교</h3>
-                    <p class="text-blue-500 dark:text-blue-400 font-bold mb-3">컴퓨터학과 (졸업)</p>
+                    <p class="text-blue-500 dark:text-blue-400 font-bold mb-3">컴퓨터학과 (재학 / 졸업예정)</p>
                     <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
                         컴퓨터 구조, 알고리즘, 데이터베이스 등 주요 전공 개념을 체계적으로 다져왔습니다. 
                         단순 이론 습득에서 멈추지 않고 시스템 성능 분석과 효율적인 데이터 스키마 관리를 현업 멘토링 프로그램 및 실무 프로젝트에 끊임없이 투영하여 고도화하고 있습니다.
@@ -208,7 +316,7 @@
                         </div>
                         <div>
                             <h4 class="font-extrabold text-slate-900 dark:text-slate-100">정보처리기사</h4>
-                            <p class="text-xs text-slate-400 dark:text-slate-500 font-medium">한국산업인력공단 (Q-Net)</p>
+                            <p class="text-xs text-slate-400 dark:text-slate-550 font-medium">한국산업인력공단 (Q-Net)</p>
                             <span class="inline-block mt-2 text-xs bg-blue-50 dark:bg-blue-950/55 text-blue-700 dark:text-blue-300 font-bold px-2 py-0.5 rounded">2025년 취득</span>
                         </div>
                     </div>
@@ -220,7 +328,7 @@
                         </div>
                         <div>
                             <h4 class="font-extrabold text-slate-900 dark:text-slate-100">SQLD (SQL 개발자)</h4>
-                            <p class="text-xs text-slate-400 dark:text-slate-500 font-medium">한국데이터산업진흥원 (K-Data)</p>
+                            <p class="text-xs text-slate-400 dark:text-slate-550 font-medium">한국데이터산업진흥원 (K-Data)</p>
                             <span class="inline-block mt-2 text-xs bg-emerald-50 dark:bg-emerald-950/55 text-emerald-700 dark:text-emerald-300 font-bold px-2 py-0.5 rounded">2024년 취득</span>
                         </div>
                     </div>
@@ -230,10 +338,11 @@
         </section>
 
 
+        <!-- -->
         <!-- ================= PAGE 3: ACTIVITIES ================= -->
         <section id="page-activities" class="page-view hidden max-w-4xl mx-auto py-16 px-6">
             
-            <!-- 수상 내역 (Honors & Awards) 섹션 추가 -->
+            <!-- 수상 내역 (Honors & Awards) 섹션 -->
             <div class="mb-14">
                 <h2 class="text-3xl font-extrabold text-slate-900 dark:text-slate-100 text-center relative mb-10 pb-3 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-12 after:h-1 after:bg-blue-600 after:rounded">
                     Honors & Awards
@@ -291,6 +400,7 @@
                 </div>
             </div>
 
+            <!-- -->
             <h2 class="text-3xl font-extrabold text-slate-900 dark:text-slate-100 text-center mb-1">Activities & Projects</h2>
             <p class="text-center text-slate-500 dark:text-slate-400 mb-12 text-sm">💡 각 활동 및 프로젝트 카드를 클릭하면 사용 기술 스택과 상세 수행 이력을 확인할 수 있습니다.</p>
             
@@ -379,7 +489,7 @@
                     </div>
                     <div class="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/80 rounded-2xl p-6 shadow-sm hover:shadow-md hover:translate-x-1.5 transition-all duration-200">
                         <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block mb-1">2023 연합 IT 동아리</span>
-                        <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors">UMC (Android 앱 개발)</h3>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 group-hover:text-slate-700 transition-colors">UMC (Android 앱 개발)</h3>
                         <div class="flex flex-wrap gap-2 mt-2.5 mb-4">
                             <span class="bg-purple-100 dark:bg-purple-950/50 text-purple-800 dark:text-purple-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full">Android</span>
                             <span class="bg-purple-100 dark:bg-purple-950/50 text-purple-800 dark:text-purple-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full">App Architecture</span>
@@ -400,7 +510,7 @@
                         <i class="fas fa-gamepad"></i>
                     </div>
                     <div class="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/80 rounded-2xl p-6 shadow-sm hover:shadow-md hover:translate-x-1.5 transition-all duration-200">
-                        <span class="text-xs font-bold text-slate-400 dark:text-slate-550 uppercase tracking-wider block mb-1">2022 교내 게임 개발 동아리</span>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">2022 교내 게임 개발 동아리</span>
                         <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors">NPC (교내 게임 개발 동아리)</h3>
                         <div class="flex flex-wrap gap-2 mt-2.5 mb-4">
                             <span class="bg-orange-50 dark:bg-orange-950/40 text-orange-700 dark:text-orange-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full">Lua</span>
@@ -421,10 +531,11 @@
     </main>
 
     <!-- 공통 푸터 -->
-    <footer class="bg-slate-900 text-slate-500 py-10 border-t border-slate-800 text-center transition-colors duration-300">
+    <footer class="bg-slate-900 text-slate-550 py-10 border-t border-slate-800 text-center transition-colors duration-300">
         <p class="text-sm">&copy; 2026 Kim Mihyun. Powered by Gemini & Tailwind CSS</p>
     </footer>
 
+    <!-- -->
     <!-- 모달 레이아웃 (공통 팝업 시스템) -->
     <div id="modal-overlay" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-[100] hidden items-center justify-center p-4" onclick="closeModalOnBg(event)">
         
@@ -490,7 +601,7 @@
             <span class="text-xs font-bold text-blue-500 dark:text-blue-400 block mb-1">2024 한이음 ICT 멘토링</span>
             <h3 class="text-2xl font-black text-slate-900 dark:text-slate-100 mb-3">AI 체형 분석 스마트 미러</h3>
             <div class="mb-4 flex flex-wrap gap-2 items-center justify-between">
-                <span class="bg-amber-100 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 text-xs font-bold px-3 py-1 rounded-md">👑 팀장 (Team Leader / AI / Server)</span>
+                <span class="bg-amber-100 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 text-xs font-bold px-3 py-1 rounded-md">👑 팀장 (Team Leader / Server)</span>
                 <a href="https://github.com/mhyeon-kim/SmartMirror" target="_blank" class="inline-flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 text-white text-xs font-bold px-3 py-1 rounded-md transition-colors">
                     <i class="fab fa-github"></i> GitHub 저장소
                 </a>
@@ -498,7 +609,7 @@
             <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6">
                 전면 스마트 디스플레이 모듈과 연동하여 탑재된 카메라를 통해 자세 특징 데이터(Keypoint)를 추적하고 신체 전반의 비대칭 및 틀어짐 지표를 예측하는 AI 하드웨어 플랫폼입니다. <br>
                 임베디드 내부 리소스 소모 분산을 목표로 Node.js 활용 로컬 게이트웨이 웹서버 및 파이썬 메인 연산 로직을 정교하게 융합했습니다. <br>
-                <strong class="text-blue-500 dark:text-blue-400">✨ 공모전 성과:</strong> 한이음 ICT 멘토링 공모전 입선 수상 및 교내 소프트웨어 경진대회 최우수상 수상작.<br>
+                <strong class="text-blue-500 dark:text-blue-400">✨ 공모전 성과:</strong> 한이음 ICT 멘토링 공모전 입선 수상 및 교내 소프트웨어 경진대회 최우수상 수상작.
             </p>
             <div>
                 <strong class="text-xs font-bold text-slate-500 dark:text-slate-400 block mb-2 uppercase">Core Tech Stack</strong>
@@ -561,7 +672,14 @@
 
     </div>
 
-    <!-- MPA 라우팅 및 팝업 모달 자바스크립트 제어 로직 -->
+    <!-- -->
+    <!-- 알림 토스트 (alert 차단 조건 만족용) -->
+    <div id="toast-message" class="toast-notify fixed bottom-8 left-1/2 bg-slate-900/90 dark:bg-slate-100/90 text-white dark:text-slate-900 font-bold text-xs px-5 py-3 rounded-xl shadow-lg z-[150] flex items-center gap-2">
+        <i class="fas fa-check-circle text-blue-500"></i> <span id="toast-text">이메일 주소가 복사되었습니다.</span>
+    </div>
+
+    <!-- -->
+    <!-- MPA 라우팅, 방명록 관리, 다크모드 등 자바스크립트 핵심 제어 로직 -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
@@ -570,23 +688,17 @@
             const darkModeIcon = document.getElementById('dark-mode-icon');
             const htmlElement = document.documentElement;
 
-            // 로컬 스토리지에 저장된 값이 있거나 없다면 시스템 설정 검사
             const savedTheme = localStorage.getItem('theme');
             const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
             if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
                 htmlElement.classList.add('dark');
-                if (darkModeIcon) {
-                    darkModeIcon.className = "fas fa-sun text-lg text-yellow-400";
-                }
+                if (darkModeIcon) darkModeIcon.className = "fas fa-sun text-lg text-yellow-400";
             } else {
                 htmlElement.classList.remove('dark');
-                if (darkModeIcon) {
-                    darkModeIcon.className = "fas fa-moon text-lg";
-                }
+                if (darkModeIcon) darkModeIcon.className = "fas fa-moon text-lg";
             }
 
-            // 다크모드 클릭 스위칭 액션
             if (darkModeToggle) {
                 darkModeToggle.addEventListener('click', () => {
                     if (htmlElement.classList.contains('dark')) {
@@ -606,19 +718,16 @@
                 const hash = window.location.hash || '#home';
                 const currentRoute = hash.replace('#', '');
                 
-                // 모든 가상 페이지를 일단 완전 숨김 처리
                 document.querySelectorAll('.page-view').forEach(view => {
                     view.classList.add('hidden');
                     view.classList.remove('block');
                 });
                 
-                // 현재 활성화된 hash 라우트 활성화 및 노출
                 const activeView = document.getElementById(`page-${currentRoute}`);
                 if (activeView) {
                     activeView.classList.remove('hidden');
                     activeView.classList.add('block');
                 } else {
-                    // 예외 경로일 경우 기본 홈화면 노출
                     const defaultView = document.getElementById('page-home');
                     if (defaultView) {
                         defaultView.classList.remove('hidden');
@@ -626,54 +735,46 @@
                     }
                 }
 
-                // 네비게이션 "현재 페이지" 활성 클래스 동적 전환 (2-2 필수 조건)
                 document.querySelectorAll('.nav-link').forEach(link => {
                     const routeTarget = link.getAttribute('data-route');
                     if (routeTarget === currentRoute) {
-                        // 활성화 스타일 클래스 부여
                         link.className = "nav-link text-sm font-extrabold text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400 py-1 transition-colors duration-200";
                     } else {
-                        // 비활성화 기본 스타일 클래스 부여
                         link.className = "nav-link text-sm font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 py-1 transition-colors duration-200";
                     }
                 });
 
-                // 페이지 전환 시 최상단으로 스크롤 위치 초기화
                 window.scrollTo({ top: 0, behavior: 'instant' });
             };
 
-            // 브라우저 뒤로가기/앞으로가기 및 Hash 이동 실시간 모니터링 이벤트 감지
             window.addEventListener('hashchange', handleRouting);
-            // 초기 페이지 로드 시점에 라우팅 1회 강제 실행
             handleRouting();
+
+            // 3. 방명록 초기 로드 및 출력
+            renderComments();
         });
 
         // ================= 핵심 기술 스택 인터랙티브 탭 전환 함수 =================
         function switchSkillTab(category) {
-            // 모든 탭 버튼의 스타일 활성화 해제
             document.querySelectorAll('.skill-tab-btn').forEach(btn => {
                 btn.className = "skill-tab-btn py-2 px-4 text-xs font-bold border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 tracking-wide mr-1 focus:outline-none transition-all duration-200";
             });
 
-            // 선택된 특정 카테고리 탭만 하이라이트 활성화
             const activeBtn = document.getElementById(`tab-btn-${category}`);
             if (activeBtn) {
                 activeBtn.className = "skill-tab-btn py-2 px-4 text-xs font-bold border-b-2 border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400 tracking-wide mr-1 focus:outline-none transition-all duration-200";
             }
 
-            // 모든 컨텐츠 카드를 페이드아웃 후 보이지 않게 처리
             document.querySelectorAll('.skill-tab-pane').forEach(pane => {
                 pane.classList.add('hidden');
                 pane.classList.remove('block', 'opacity-100');
                 pane.classList.add('opacity-0');
             });
 
-            // 지정된 컨텐츠 카드만 부드럽게 노출
             const targetPane = document.getElementById(`tab-pane-${category}`);
             if (targetPane) {
                 targetPane.classList.remove('hidden');
                 targetPane.classList.add('block');
-                // 디스플레이 렌더 시간 텀을 위해 브라우저 프레임 디스패치 적용
                 setTimeout(() => {
                     targetPane.classList.remove('opacity-0');
                     targetPane.classList.add('opacity-100');
@@ -688,9 +789,8 @@
             if (overlay) {
                 overlay.classList.remove('hidden');
                 overlay.classList.add('flex');
-                document.body.style.overflow = 'hidden'; // 부모 본문 스크롤 정지
+                document.body.style.overflow = 'hidden';
 
-                // 기존 열려있던 하위 팝업 노출 초기화
                 document.querySelectorAll('.modal-content').forEach(content => {
                     content.classList.add('hidden');
                 });
@@ -705,7 +805,7 @@
             if (overlay) {
                 overlay.classList.add('hidden');
                 overlay.classList.remove('flex');
-                document.body.style.overflow = ''; // 본문 스크롤 복원
+                document.body.style.overflow = '';
                 document.querySelectorAll('.modal-content').forEach(content => {
                     content.classList.add('hidden');
                 });
@@ -713,10 +813,112 @@
         }
 
         function closeModalOnBg(e) {
-            // 외부 불투명 배경 영역을 정확히 클릭 시에만 안전 종료 처리
             if (e.target === overlay) {
                 closeActiveModal();
             }
+        }
+
+        // ================= 이메일 간편 복사 및 Custom Toast 출력 로직 =================
+        function copyToClipboard(text) {
+            // iframe 보안 정책을 우회하기 위한 호환성 우선 클립보드 복사 로직 적용
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed'; // 화면 밖 배치
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showToast("이메일 주소가 클립보드에 복사되었습니다.");
+            } catch (err) {
+                showToast("복사에 실패했습니다. 직접 복사해주세요.");
+            }
+            document.body.removeChild(textarea);
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast-message');
+            const toastText = document.getElementById('toast-text');
+            if (toast && toastText) {
+                toastText.innerText = message;
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 2500);
+            }
+        }
+
+        // ================= LocalStorage 기반 방명록 제어 모듈 =================
+        function getComments() {
+            const comments = localStorage.getItem('mihyun_portfolio_comments');
+            return comments ? JSON.parse(comments) : [
+                { id: 1, name: "개발 파트너", text: "포트폴리오가 깔끔하고 백엔드 역량이 돋보입니다! 🚀" },
+                { id: 2, name: "인사팀 멘토", text: "대외활동과 프로젝트 관리를 체계적으로 잘 하셨네요." }
+            ];
+        }
+
+        function renderComments() {
+            const commentList = document.getElementById('guestbook-list');
+            if (!commentList) return;
+            const comments = getComments();
+            
+            if (comments.length === 0) {
+                commentList.innerHTML = `<p class="text-xs text-slate-400 dark:text-slate-550 text-center py-4">첫 방명록을 남겨보세요!</p>`;
+                return;
+            }
+
+            commentList.innerHTML = comments.map(c => `
+                <div class="flex items-start justify-between p-2.5 bg-white dark:bg-slate-900 rounded-xl border border-slate-200/50 dark:border-slate-800/80 group">
+                    <div class="space-y-0.5">
+                        <span class="text-xs font-bold text-blue-600 dark:text-blue-450">${escapeHTML(c.name)}</span>
+                        <p class="text-xs text-slate-600 dark:text-slate-350 leading-relaxed">${escapeHTML(c.text)}</p>
+                    </div>
+                    <button onclick="deleteComment(${c.id})" class="text-[10px] text-slate-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity" title="댓글 삭제">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function addComment(e) {
+            e.preventDefault();
+            const nameInput = document.getElementById('gb-name');
+            const commentInput = document.getElementById('gb-comment');
+            if (!nameInput || !commentInput) return;
+
+            const name = nameInput.value.trim();
+            const text = commentInput.value.trim();
+
+            if (!name || !text) return;
+
+            const comments = getComments();
+            const newComment = {
+                id: Date.now(),
+                name: name,
+                text: text
+            };
+
+            comments.unshift(newComment);
+            localStorage.setItem('mihyun_portfolio_comments', JSON.stringify(comments));
+            
+            nameInput.value = '';
+            commentInput.value = '';
+            
+            renderComments();
+            showToast("따뜻한 메시지가 정상 등록되었습니다!");
+        }
+
+        function deleteComment(id) {
+            let comments = getComments();
+            comments = comments.filter(c => c.id !== id);
+            localStorage.setItem('mihyun_portfolio_comments', JSON.stringify(comments));
+            renderComments();
+            showToast("메시지가 삭제되었습니다.");
+        }
+
+        function escapeHTML(str) {
+            return str.replace(/[&<>'"]/g, 
+                tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+            );
         }
     </script>
 </body>

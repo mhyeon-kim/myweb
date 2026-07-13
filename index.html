@@ -1,45 +1,502 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SSAFY 소개 - 홈</title>
-    <!-- Tailwind CSS CDN 추가 -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>김미현 | Backend & Systems Portfolio</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Segoe UI', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <!-- 구글 폰트 및 아이콘 라이브러리 추가 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* 페이지 전환을 위한 부드러운 애니메이션 효과 */
+        .page-view {
+            transition: opacity 0.25s ease-in-out;
+        }
+    </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans leading-relaxed m-0 p-0">
+<body class="bg-slate-50 text-slate-800 font-sans flex flex-col min-h-screen">
 
-    <!-- [확정] 네비게이션 바 컴포넌트 -->
-    <nav class="bg-[#0070c0] text-white sticky top-0 z-50 shadow-md">
-        <div class="max-w-4xl mx-auto px-4 flex justify-between items-center h-16">
-            <div class="font-bold text-xl tracking-wide">SSAFY</div>
-            <div class="flex space-x-2">
-                <!-- 현재 페이지 활성화 (bg-white text-[#0070c0]) -->
-                <a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium transition-colors bg-white text-[#0070c0]">홈</a>
-                <a href="benefits.html" class="px-3 py-2 rounded-md text-sm font-medium transition-colors hover:bg-[#005ba3]">주요 혜택</a>
-                <a href="curriculum.html" class="px-3 py-2 rounded-md text-sm font-medium transition-colors hover:bg-[#005ba3]">교육 과정</a>
-            </div>
+    <!-- 2-2. 공통 네비게이션 바 컴포넌트 -->
+    <header class="fixed top-0 left-0 w-full bg-slate-900/95 backdrop-blur-md shadow-md z-50 border-b border-slate-800">
+        <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="text-2xl font-extrabold text-blue-500 tracking-wider">I AM.</a>
+            <nav id="nav-menu" class="flex space-x-6">
+                <!-- 현재 페이지 활성화 하이라이트는 JavaScript에서 동적으로 완벽하게 제어됩니다 -->
+                <a href="#home" data-route="home" class="nav-link text-sm font-semibold py-1 transition-colors duration-200">About</a>
+                <a href="#education" data-route="education" class="nav-link text-sm font-semibold py-1 transition-colors duration-200">Education</a>
+                <a href="#activities" data-route="activities" class="nav-link text-sm font-semibold py-1 transition-colors duration-200">Activities</a>
+            </nav>
         </div>
-    </nav>
-
-    <!-- 헤더 영역 -->
-    <header class="bg-[#0070c0] text-white text-center py-12 px-4 shadow-sm">
-        <h1 class="text-3xl md:text-4xl font-extrabold mb-3">SSAFY (삼성 청년 SW 아카데미)</h1>
-        <p class="text-base md:text-lg max-w-2xl mx-auto opacity-90">삼성의 SW 교육 경험과 고용노동부의 취업 지원 노하우가 만난 청년 SW 인재 양성 프로그램</p>
     </header>
 
-    <!-- 메인 콘텐츠 영역 -->
-    <main class="max-w-4xl mx-auto my-8 px-4">
-        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-            <h2 class="text-xl font-bold text-[#0070c0] border-b-2 border-[#0070c0] pb-2 mb-4">프로그램 개요</h2>
-            <p class="text-gray-700">SSAFY는 대한민국 청년들의 취업 경쟁력을 높이고 software 생태계 확장을 위해 삼성이 운영하는 사회공헌 프로그램입니다. 현업에서 즉시 투입 가능한 실전형 SW 개발자를 양성하는 것을 목표로 합니다.</p>
-        </div>
+    <!-- MPA 가상 페이지 컨테이너 목록 -->
+    <main class="flex-grow pt-16">
+
+        <!-- ================= PAGE 1: HOME & ABOUT ================= -->
+        <section id="page-home" class="page-view block">
+            <!-- 히어로 섹션 (Hero Section) -->
+            <div class="bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 text-white py-24 px-6 text-center">
+                <div class="max-w-3xl mx-auto">
+                    <h1 class="text-4xl md:text-5xl font-black mb-6 leading-tight">
+                        안녕하세요, <span class="text-blue-400 border-b-4 border-blue-500 pb-1">김미현</span>입니다.
+                    </h1>
+                    <p class="text-lg md:text-xl text-slate-300 font-light max-w-xl mx-auto leading-relaxed">
+                        견고한 백엔드 인프라와 사용자 중심의 서비스를 설계하며 팀을 성장으로 이끄는 백엔드 엔지니어입니다.
+                    </p>
+                    <div class="mt-8">
+                        <a href="#activities" class="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg shadow-blue-900/30 transition-all duration-200 hover:-translate-y-0.5">
+                            프로젝트 보기 <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 프로필 및 핵심 역량 섹션 -->
+            <div class="max-w-4xl mx-auto py-16 px-6">
+                <h2 class="text-3xl font-extrabold text-slate-900 text-center relative mb-12 pb-3 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-12 after:h-1 after:bg-blue-600 after:rounded">
+                    About Me
+                </h2>
+                <div class="flex flex-col md:flex-row gap-12 items-center md:items-start">
+                    <!-- 아바타 플레이스홀더 이미지 대체 영역 -->
+                    <div class="flex-shrink-0 w-44 h-44 bg-gradient-to-tr from-slate-200 to-slate-300 rounded-3xl flex items-center justify-center text-slate-500 shadow-inner">
+                        <i class="fas fa-laptop-code text-6xl"></i>
+                    </div>
+                    <!-- 프로필 상세 정보 -->
+                    <div class="flex-grow">
+                        <p class="text-lg leading-relaxed text-slate-600 mb-6 font-normal">
+                            대학에서 컴퓨터학을 전공하며 백엔드 아키텍처 설계 및 대규모 트래픽 분산 처리에 깊은 관심을 가져왔습니다. 
+                            다양한 연합 활동과 실무형 융합 프로젝트에서 <strong class="text-blue-600 font-semibold">팀장 및 서버</strong> 역할을 역임하며, 
+                            단순 기능 구현을 넘어 원활한 소통 프로세스를 구축하고 성능을 점진적으로 개선해 나가는 보람을 배우고 있습니다.
+                        </p>
+                        
+                        <!-- 핵심 요약 정보 및 역량 기술 스택 -->
+                        <div class="bg-slate-100 border border-slate-200/60 rounded-2xl p-6 shadow-sm">
+                            <h3 class="text-md font-bold text-slate-800 mb-4 tracking-wide uppercase"><i class="fas fa-cubes text-blue-500 mr-2"></i> 핵심 전공 역량</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <span class="text-xs font-bold text-slate-500 block mb-1.5 uppercase">Backend & Web Frameworks</span>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold px-3 py-1 rounded-md">Spring Boot</span>
+                                        <span class="bg-cyan-50 border border-cyan-200 text-cyan-700 text-xs font-bold px-3 py-1 rounded-md">React</span>
+                                        <span class="bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold px-3 py-1 rounded-md">FastAPI</span>
+                                        <span class="bg-lime-50 border border-lime-200 text-lime-700 text-xs font-bold px-3 py-1 rounded-md">Node.js</span>
+                                        <span class="bg-yellow-50 border border-yellow-200 text-yellow-700 text-xs font-bold px-3 py-1 rounded-md">Python</span>
+                                    </div>
+                                </div>
+                                <div class="pt-2 border-t border-slate-200/50">
+                                    <span class="text-xs font-bold text-slate-500 block mb-1.5 uppercase">Data & Cloud Infrastructure</span>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="bg-slate-200 text-slate-800 text-xs font-bold px-3 py-1 rounded-md">MySQL</span>
+                                        <span class="bg-slate-200 text-slate-800 text-xs font-bold px-3 py-1 rounded-md">MariaDB</span>
+                                        <span class="bg-slate-200 text-slate-800 text-xs font-bold px-3 py-1 rounded-md">Oracle DB</span>
+                                        <span class="bg-slate-200 text-slate-800 text-xs font-bold px-3 py-1 rounded-md">AWS (EC2/RDS/VPC/S3)</span>
+                                        <span class="bg-slate-200 text-slate-800 text-xs font-bold px-3 py-1 rounded-md">Docker</span>
+                                        <span class="bg-slate-200 text-slate-800 text-xs font-bold px-3 py-1 rounded-md">GitHub Actions</span>
+                                        <span class="bg-slate-200 text-slate-800 text-xs font-bold px-3 py-1 rounded-md">OpenCV</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PAGE 2: EDUCATION ================= -->
+        <section id="page-education" class="page-view hidden max-w-4xl mx-auto py-16 px-6 min-h-[60vh]">
+            <h2 class="text-3xl font-extrabold text-slate-900 text-center relative mb-12 pb-3 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-12 after:h-1 after:bg-blue-600 after:rounded">
+                Education
+            </h2>
+            <div class="bg-white border-l-4 border-blue-500 shadow-md rounded-r-2xl p-8 flex flex-col md:flex-row gap-6 items-start md:items-center hover:shadow-lg transition-all duration-300">
+                <div class="p-4 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center">
+                    <i class="fas fa-graduation-cap text-4xl"></i>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold text-slate-900 mb-1">동덕여자대학교</h3>
+                    <p class="text-blue-500 font-bold mb-3">컴퓨터학과 (재학 / 졸업예정)</p>
+                    <p class="text-slate-600 leading-relaxed">
+                        컴퓨터 구조, 알고리즘, 데이터베이스 등 주요 전공 개념을 체계적으로 다져왔습니다. 
+                        단순 이론 습득에서 멈추지 않고 시스템 성능 분석과 효율적인 데이터 스키마 관리를 현업 멘토링 프로그램 및 실무 프로젝트에 끊임없이 투영하여 고도화하고 있습니다.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PAGE 3: ACTIVITIES ================= -->
+        <section id="page-activities" class="page-view hidden max-w-4xl mx-auto py-16 px-6">
+            <h2 class="text-3xl font-extrabold text-slate-900 text-center mb-1">Activities & Projects</h2>
+            <p class="text-center text-slate-500 mb-12 text-sm">💡 각 활동 및 프로젝트 카드를 클릭하면 사용 기술 스택과 상세 수행 이력을 확인할 수 있습니다.</p>
+            
+            <!-- 세로형 타임라인 레이아웃 -->
+            <div class="relative border-l-2 border-slate-200 ml-4 md:ml-8 pl-8 md:pl-10 space-y-12">
+                
+                <!-- 2025 한이음 드림업 -->
+                <div class="relative group cursor-pointer" onclick="openModal('popup-hanium25')">
+                    <!-- 타임라인 버블 노드 -->
+                    <div class="absolute -left-[45px] top-1.5 w-7 h-7 rounded-full bg-blue-600 ring-4 ring-blue-100 flex items-center justify-center text-white text-xs transition-transform group-hover:scale-110">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm hover:shadow-md hover:translate-x-1.5 transition-all duration-200">
+                        <span class="text-xs font-bold text-blue-600 uppercase tracking-wider block mb-1">2025 대외활동</span>
+                        <h3 class="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">2025 한이음 드림업 (ICT 멘토링)</h3>
+                        <div class="flex flex-wrap gap-2 mt-2.5 mb-4">
+                            <span class="bg-amber-100 text-amber-800 text-[11px] font-bold px-2.5 py-0.5 rounded-full">👑 팀장</span>
+                            <span class="bg-blue-50 text-blue-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">Spring Boot</span>
+                            <span class="bg-emerald-50 text-emerald-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">FastAPI</span>
+                            <span class="bg-indigo-50 text-indigo-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">Infra</span>
+                            <span class="bg-sky-50 text-sky-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">MySQL</span>
+                            <a href="https://github.com/orgs/Comgongjineung/repositories" target="_blank" onclick="event.stopPropagation();" class="inline-flex items-center gap-1 bg-slate-900 hover:bg-slate-800 text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full transition-colors ml-auto">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </div>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            AI • AR 기술을 융합한 개인 전시회 가이드 모바일 앱 서비스를 전체 총괄 및 리드하였습니다.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 전공 과목 프로젝트 (로컬푸드 직거래 쇼핑몰) -->
+                <div class="relative group cursor-pointer" onclick="openModal('popup-localfood')">
+                    <!-- 타임라인 버블 노드 -->
+                    <div class="absolute -left-[45px] top-1.5 w-7 h-7 rounded-full bg-emerald-600 ring-4 ring-emerald-100 flex items-center justify-center text-white text-xs transition-transform group-hover:scale-110">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm hover:shadow-md hover:translate-x-1.5 transition-all duration-200">
+                        <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider block mb-1">전공 교과목 프로젝트</span>
+                        <h3 class="text-xl font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">로컬푸드 직거래 웹 쇼핑몰</h3>
+                        <div class="flex flex-wrap gap-2 mt-2.5 mb-4">
+                            <span class="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2.5 py-0.5 rounded-full">Full Stack</span>
+                            <span class="bg-blue-50 text-blue-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">Spring Boot</span>
+                            <span class="bg-cyan-50 text-cyan-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">React</span>
+                            <span class="bg-rose-50 text-rose-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">Oracle DB</span>
+                            <a href="https://github.com/orgs/25localeat/repositories" target="_blank" onclick="event.stopPropagation();" class="inline-flex items-center gap-1 bg-slate-900 hover:bg-slate-800 text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full transition-colors ml-auto">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </div>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Spring Boot 백엔드와 React 프론트엔드를 고도로 통합하고, Oracle DB 모델링을 거쳐 개발한 전용 직거래 쇼핑 웹앱 서비스입니다.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 2024 한이음 -->
+                <div class="relative group cursor-pointer" onclick="openModal('popup-hanium24')">
+                    <!-- 타임라인 버블 노드 -->
+                    <div class="absolute -left-[45px] top-1.5 w-7 h-7 rounded-full bg-blue-500 ring-4 ring-blue-100 flex items-center justify-center text-white text-xs transition-transform group-hover:scale-110">
+                        <i class="fas fa-circle-check"></i>
+                    </div>
+                    <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm hover:shadow-md hover:translate-x-1.5 transition-all duration-200">
+                        <span class="text-xs font-bold text-blue-500 uppercase tracking-wider block mb-1">2024 대외활동</span>
+                        <h3 class="text-xl font-bold text-slate-900 group-hover:text-blue-500 transition-colors">2024 한이음 ICT 멘토링</h3>
+                        <div class="flex flex-wrap gap-2 mt-2.5 mb-4">
+                            <span class="bg-amber-100 text-amber-800 text-[11px] font-bold px-2.5 py-0.5 rounded-full">👑 팀장</span>
+                            <span class="bg-slate-100 text-slate-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">Python</span>
+                            <span class="bg-slate-100 text-slate-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">OpenCV</span>
+                            <span class="bg-lime-50 text-lime-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">Node.js</span>
+                            <span class="bg-teal-50 text-teal-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">MariaDB</span>
+                            <a href="https://github.com/mhyeon-kim/SmartMirror" target="_blank" onclick="event.stopPropagation();" class="inline-flex items-center gap-1 bg-slate-900 hover:bg-slate-800 text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full transition-colors ml-auto">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </div>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            컴퓨터 비전 기술을 통한 실시간 AI 체형 및 자세 분석 하드웨어 연동 스마트 미러 서비스를 성공적으로 마쳤습니다.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- UMC -->
+                <div class="relative group cursor-pointer" onclick="openModal('popup-umc')">
+                    <!-- 타임라인 버블 노드 -->
+                    <div class="absolute -left-[45px] top-1.5 w-7 h-7 rounded-full bg-slate-500 ring-4 ring-slate-100 flex items-center justify-center text-white text-xs transition-transform group-hover:scale-110">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm hover:shadow-md hover:translate-x-1.5 transition-all duration-200">
+                        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">연합 IT 동아리</span>
+                        <h3 class="text-xl font-bold text-slate-900 group-hover:text-slate-700 transition-colors">UMC (Android 앱 개발)</h3>
+                        <div class="flex flex-wrap gap-2 mt-2.5 mb-4">
+                            <span class="bg-purple-100 text-purple-800 text-[11px] font-bold px-2.5 py-0.5 rounded-full">Android</span>
+                            <span class="bg-purple-100 text-purple-800 text-[11px] font-bold px-2.5 py-0.5 rounded-full">App Architecture</span>
+                            <a href="https://github.com/mhyeon-kim/AnDDeul" target="_blank" onclick="event.stopPropagation();" class="inline-flex items-center gap-1 bg-slate-900 hover:bg-slate-800 text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full transition-colors ml-auto">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </div>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            다양한 직군의 지망생들과 연합 서비스를 제작하며 클라이언트 개발 지식과 백엔드 데이터 최적화 지향 협업 경험을 획득했습니다.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- NPC -->
+                <div class="relative group cursor-pointer" onclick="openModal('popup-npc')">
+                    <!-- 타임라인 버블 노드 -->
+                    <div class="absolute -left-[45px] top-1.5 w-7 h-7 rounded-full bg-slate-400 ring-4 ring-slate-100 flex items-center justify-center text-white text-xs transition-transform group-hover:scale-110">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm hover:shadow-md hover:translate-x-1.5 transition-all duration-200">
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">교내 학술 동아리</span>
+                        <h3 class="text-xl font-bold text-slate-900 group-hover:text-slate-600 transition-colors">NPC (교내 게임 개발 동아리)</h3>
+                        <div class="flex flex-wrap gap-2 mt-2.5 mb-4">
+                            <span class="bg-orange-50 text-orange-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">Lua</span>
+                            <span class="bg-purple-50 text-purple-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">Unity</span>
+                            <a href="https://github.com/mhyeon-kim/Summer_Vacation" target="_blank" onclick="event.stopPropagation();" class="inline-flex items-center gap-1 bg-slate-900 hover:bg-slate-800 text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full transition-colors ml-auto">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </div>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            기획 및 아트 부원들과 유기적인 협업 모델을 구상하고 OOP 설계 기법에 기반해 핵심 클라이언트 인터랙션 로직을 제작해 보았습니다.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
     </main>
 
-    <!-- 푸터 영역 -->
-    <footer class="text-center py-6 bg-gray-800 text-white text-sm mt-12">
-        <p>&copy; Samsung Software Academy for Youth. All Rights Reserved.</p>
+    <!-- 공통 푸터 -->
+    <footer class="bg-slate-900 text-slate-500 py-10 border-t border-slate-800 text-center">
+        <p class="text-sm">&copy; 2026 Kim Mihyun. Powered by Gemini & Tailwind CSS</p>
     </footer>
 
+    <!-- 모달 레이아웃 (공통 팝업 시스템) -->
+    <div id="modal-overlay" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-[100] hidden items-center justify-center p-4" onclick="closeModalOnBg(event)">
+        
+        <!-- 로컬푸드 직거래 쇼핑몰 상세 모달 -->
+        <div id="popup-localfood" class="modal-content bg-white rounded-2xl max-w-lg w-full shadow-2xl relative p-8 hidden animate-[fadeIn_0.2s_ease-out]">
+            <button class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 text-2xl" onclick="closeActiveModal()">&times;</button>
+            <span class="text-xs font-bold text-emerald-600 block mb-1">전공 교과목 프로젝트</span>
+            <h3 class="text-2xl font-black text-slate-900 mb-3">로컬푸드 직거래 웹 쇼핑몰</h3>
+            <div class="mb-4 flex items-center justify-between">
+                <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-md">풀스택 아키텍처 및 관계형 DB 모델링</span>
+                <a href="https://github.com/orgs/25localeat/repositories" target="_blank" class="inline-flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-3 py-1 rounded-md transition-colors">
+                    <i class="fab fa-github"></i> GitHub 저장소
+                </a>
+            </div>
+            <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                유통 단계를 최소화하여 지역 경제 활성화를 목표로 한 전용 커머스 플랫폼입니다. <br>
+                <strong>React</strong> 기반의 동적이고 반응형을 고려한 UI를 구성하고, <strong>Spring Boot</strong>를 통해 강력하고 안전한 REST API 웹 서버를 연동하였습니다. 
+                특히 복잡한 트랜잭션 분리를 극대화하고 데이터 무결성을 보장하기 위해 <strong>Oracle DB</strong>의 정규화된 ERD 및 주문/결제 프로세스 롤백 제어 정책을 설계 및 도입한 가치 있는 풀스택 프로젝트입니다.
+            </p>
+            <div>
+                <strong class="text-xs font-bold text-slate-500 block mb-2 uppercase">Core Tech Stack</strong>
+                <div class="flex flex-wrap gap-2">
+                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">React</span>
+                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">Spring Boot</span>
+                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">Oracle Database</span>
+                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">MyBatis / JPA</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2025 드림업 상세 모달 -->
+        <div id="popup-hanium25" class="modal-content bg-white rounded-2xl max-w-lg w-full shadow-2xl relative p-8 hidden animate-[fadeIn_0.2s_ease-out]">
+            <button class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 text-2xl" onclick="closeActiveModal()">&times;</button>
+            <span class="text-xs font-bold text-blue-600 block mb-1">2025 한이음 드림업</span>
+            <h3 class="text-2xl font-black text-slate-900 mb-3">AI • AR 전시회 관람 가이드 앱</h3>
+            <div class="mb-4 flex items-center justify-between">
+                <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-md">👑 팀장 (Server Lead)</span>
+                <a href="https://github.com/orgs/Comgongjineung/repositories" target="_blank" class="inline-flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-3 py-1 rounded-md transition-colors">
+                    <i class="fab fa-github"></i> GitHub 저장소
+                </a>
+            </div>
+            <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                오프라인 미술 및 유물 전시장 전용 도슨트 기능을 원격 및 증강현실(AR) 디스플레이로 지원하는 융합 앱 플랫폼입니다. 
+                팀장으로서 서버 전반의 데이터 마일스톤 설계부터 효율성 및 트래픽 격리를 목적으로 Spring Boot 기반 API 서버와 FastAPI 가볍고 영리한 서빙 모듈을 조율하는 클라우드 아키텍처를 주도적으로 빌드하였습니다.
+            </p>
+            <div>
+                <strong class="text-xs font-bold text-slate-500 block mb-2 uppercase">Core Tech Stack</strong>
+                <div class="flex flex-wrap gap-2">
+                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">Spring Boot</span>
+                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">FastAPI</span>
+                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">AWS</span>
+                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">Docker</span>
+                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">GitHub Actions</span>
+                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">MySQL</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2024 한이음 상세 모달 -->
+        <div id="popup-hanium24" class="modal-content bg-white rounded-2xl max-w-lg w-full shadow-2xl relative p-8 hidden animate-[fadeIn_0.2s_ease-out]">
+            <button class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 text-2xl" onclick="closeActiveModal()">&times;</button>
+            <span class="text-xs font-bold text-blue-500 block mb-1">2024 한이음 ICT 멘토링</span>
+            <h3 class="text-2xl font-black text-slate-900 mb-3">AI 체형 분석 스마트 미러</h3>
+            <div class="mb-4 flex items-center justify-between">
+                <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-md">👑 팀장 (Project PM / Server)</span>
+                <a href="https://github.com/mhyeon-kim/SmartMirror" target="_blank" class="inline-flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-3 py-1 rounded-md transition-colors">
+                    <i class="fab fa-github"></i> GitHub 저장소
+                </a>
+            </div>
+            <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                전면 스마트 디스플레이 모듈과 연동하여 탑재된 카메라를 통해 자세 특징 데이터(Keypoint)를 추적하고 신체 전반의 비대칭 및 틀어짐 지표를 예측하는 AI 하드웨어 플랫폼입니다. 
+                임베디드 내부 리소스 소모 분산을 목표로 Node.js 활용 로컬 게이트웨이 웹서버 및 파이썬 메인 연산 로직을 정교하게 융합했습니다.
+            </p>
+            <div>
+                <strong class="text-xs font-bold text-slate-500 block mb-2 uppercase">Core Tech Stack</strong>
+                <div class="flex flex-wrap gap-2">
+                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">Python</span>
+                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">OpenCV</span>
+                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">Node.js (Local)</span>
+                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">MariaDB</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- UMC 상세 모달 -->
+        <div id="popup-umc" class="modal-content bg-white rounded-2xl max-w-lg w-full shadow-2xl relative p-8 hidden animate-[fadeIn_0.2s_ease-out]">
+            <button class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 text-2xl" onclick="closeActiveModal()">&times;</button>
+            <span class="text-xs font-bold text-slate-500 block mb-1">연합 IT 동아리</span>
+            <h3 class="text-2xl font-black text-slate-900 mb-3">UMC (Android 앱 개발)</h3>
+            <div class="mb-4">
+                <a href="https://github.com/mhyeon-kim/AnDDeul" target="_blank" class="inline-flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-3 py-1 rounded-md transition-colors">
+                    <i class="fab fa-github"></i> GitHub 저장소
+                </a>
+            </div>
+            <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                실제 서비스 런칭 단계를 기획부터 디자인, 설계 단계까지 타 직무 지망생들과 공유하며 실무 중심 협업 문화를 익혔습니다. 
+                클라이언트 구조를 직접 구현해 봄으로써 REST API 명세서 구성 시 데이터 타입 처리 방식과 비동기 제어 구조 등 서버 설계에서 반드시 배려해야 할 유의점을 폭넓게 인지할 수 있는 가치 있는 경험이었습니다.
+            </p>
+            <div>
+                <strong class="text-xs font-bold text-slate-500 block mb-2 uppercase">Core Learning Stack</strong>
+                <div class="flex flex-wrap gap-2">
+                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">Kotlin</span>
+                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">Retrofit2</span>
+                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">MVVM Architecture</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- NPC 상세 모달 -->
+        <div id="popup-npc" class="modal-content bg-white rounded-2xl max-w-lg w-full shadow-2xl relative p-8 hidden animate-[fadeIn_0.2s_ease-out]">
+            <button class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 text-2xl" onclick="closeActiveModal()">&times;</button>
+            <span class="text-xs font-bold text-slate-400 block mb-1">교내 학술 동아리</span>
+            <h3 class="text-2xl font-black text-slate-900 mb-3">NPC 게임 개발 동아리</h3>
+            <div class="mb-4">
+                <a href="https://github.com/mhyeon-kim/Summer_Vacation" target="_blank" class="inline-flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-3 py-1 rounded-md transition-colors">
+                    <i class="fab fa-github"></i> GitHub 저장소
+                </a>
+            </div>
+            <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                아이디어를 실제 가동 로직으로 구체화하는 순수 객체 지향 게임 개발 엔진을 사용하며 소프트웨어 디자인 패턴(싱글톤, 상태 패턴, 이벤트 트리거링)의 개념을 확립하고 조기에 유용한 활용법을 터득했습니다. 
+                부서 간 소통 효율화를 통해 주 단위 통합 테스트 및 스프린트 빌드 목표 달성을 달성했습니다.
+            </p>
+            <div>
+                <strong class="text-xs font-bold text-slate-500 block mb-2 uppercase">Core Learning Stack</strong>
+                <div class="flex flex-wrap gap-2">
+                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">Unity</span>
+                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">Lua Scripting</span>
+                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">OOP Patterns</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MPA 라우팅 및 팝업 모달 자바스크립트 제어 로직 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // MPA 구조 시뮬레이션 라우팅 핸들링
+            const handleRouting = () => {
+                const hash = window.location.hash || '#home';
+                const currentRoute = hash.replace('#', '');
+                
+                // 1. 모든 가상 페이지를 일단 완전 숨김 처리
+                document.querySelectorAll('.page-view').forEach(view => {
+                    view.classList.add('hidden');
+                    view.classList.remove('block');
+                });
+                
+                // 2. 현재 활성화된 hash 라우트 활성화 및 노출
+                const activeView = document.getElementById(`page-${currentRoute}`);
+                if (activeView) {
+                    activeView.classList.remove('hidden');
+                    activeView.classList.add('block');
+                } else {
+                    // 예외 경로일 경우 기본 홈화면 노출
+                    const defaultView = document.getElementById('page-home');
+                    defaultView.classList.remove('hidden');
+                    defaultView.classList.add('block');
+                }
+
+                // 3. 네비게이션 "현재 페이지" 활성 클래스 동적 전환 (2-2 필수 조건)
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    const routeTarget = link.getAttribute('data-route');
+                    if (routeTarget === currentRoute) {
+                        // 활성화 스타일 클래스 부여
+                        link.className = "nav-link text-sm font-extrabold text-blue-500 border-b-2 border-blue-500 py-1 transition-colors duration-200";
+                    } else {
+                        // 비활성화 기본 스타일 클래스 부여
+                        link.className = "nav-link text-sm font-semibold text-slate-400 hover:text-slate-200 py-1 transition-colors duration-200";
+                    }
+                });
+
+                // 페이지 전환 시 최상단으로 스크롤 위치 초기화
+                window.scrollTo({ top: 0, behavior: 'instant' });
+            };
+
+            // 브라우저 뒤로가기/앞으로가기 및 Hash 이동 실시간 모니터링 이벤트 감지
+            window.addEventListener('hashchange', handleRouting);
+            // 초기 페이지 로드 시점에 라우팅 1회 강제 실행
+            handleRouting();
+        });
+
+        // ================= 모달 팝업 액션 함수 =================
+        const overlay = document.getElementById('modal-overlay');
+
+        function openModal(id) {
+            if (overlay) {
+                overlay.classList.remove('hidden');
+                overlay.classList.add('flex');
+                document.body.style.overflow = 'hidden'; // 부모 본문 스크롤 정지
+
+                // 기존 열려있던 하위 팝업 노출 초기화
+                document.querySelectorAll('.modal-content').forEach(content => {
+                    content.classList.add('hidden');
+                });
+                const target = document.getElementById(id);
+                if (target) {
+                    target.classList.remove('hidden');
+                }
+            }
+        }
+
+        function closeActiveModal() {
+            if (overlay) {
+                overlay.classList.add('hidden');
+                overlay.classList.remove('flex');
+                document.body.style.overflow = ''; // 본문 스크롤 복원
+                document.querySelectorAll('.modal-content').forEach(content => {
+                    content.classList.add('hidden');
+                });
+            }
+        }
+
+        function closeModalOnBg(e) {
+            // 외부 불투명 배경 영역을 정확히 클릭 시에만 안전 종료 처리
+            if (e.target === overlay) {
+                closeActiveModal();
+            }
+        }
+    </script>
 </body>
 </html>

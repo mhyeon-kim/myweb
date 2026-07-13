@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSAFY 소개 - 교육 과정</title>
+    <!-- Tailwind CSS CDN 추가 -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans leading-relaxed m-0 p-0">
+
+    <!-- [확정] 네비게이션 바 컴포넌트 -->
+    <nav class="bg-[#0070c0] text-white sticky top-0 z-50 shadow-md">
+        <div class="max-w-4xl mx-auto px-4 flex justify-between items-center h-16">
+            <div class="font-bold text-xl tracking-wide">SSAFY</div>
+            <div class="flex space-x-2">
+                <a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium transition-colors hover:bg-[#005ba3]">홈</a>
+                <a href="benefits.html" class="px-3 py-2 rounded-md text-sm font-medium transition-colors hover:bg-[#005ba3]">주요 혜택</a>
+                <!-- 현재 페이지 활성화 (bg-white text-[#0070c0]) -->
+                <a href="curriculum.html" class="px-3 py-2 rounded-md text-sm font-medium transition-colors bg-white text-[#0070c0]">교육 과정</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 헤더 영역 -->
+    <header class="bg-[#0070c0] text-white text-center py-12 px-4 shadow-sm">
+        <h1 class="text-3xl md:text-4xl font-extrabold mb-3">1년간의 체계적인 커리큘럼</h1>
+        <p class="text-base md:text-lg max-w-2xl mx-auto opacity-90">기초부터 실전 프로젝트까지 현업 인재로 거듭나는 단계별 로드맵입니다.</p>
+    </header>
+
+    <!-- 메인 콘텐츠 영역 -->
+    <main class="max-w-4xl mx-auto my-8 px-4 space-y-6">
+        <!-- 1학기 -->
+        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+            <h2 class="text-xl font-bold text-[#0070c0] border-b-2 border-[#0070c0] pb-2 mb-4">1학기: Coding Track (기반 다지기)</h2>
+            <p class="text-gray-700 mb-3 font-semibold">"탄탄한 SW 기본기와 문제해결 능력 배양"</p>
+            <p class="text-gray-600">알고리즘 직중 훈련을 통해 컴퓨팅 사고력을 확장하고, Web Front-End와 Back-End 프레임워크 핵심 기술을 학습하여 독자적인 풀스택 웹 애플리케이션을 구현할 수 있는 기본기를 완성합니다.</p>
+        </div>
+
+        <!-- 2학기 -->
+        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+            <h2 class="text-xl font-bold text-[#0070c0] border-b-2 border-[#0070c0] pb-2 mb-4">2학기: Project Track (심화 역량)</h2>
+            <p class="text-gray-700 mb-3 font-semibold">"현업 트렌드 기술 기반 고도화 관통 프로젝트 수행"</p>
+            <p class="text-gray-600">자기주도적 팀 프로젝트를 중심으로 진행됩니다. 인공지능(AI), 사물인터넷(IoT), 빅데이터(Big Data), 블록체인 등 최신 도메인 기술을 결합하여 실제 서비스 런칭 수준의 아키텍처를 설계하고 협업 인프라(CI/CD)를 경험합니다.</p>
+        </div>
+    </main>
+
+    <!-- 푸터 영역 -->
+    <footer class="text-center py-6 bg-gray-800 text-white text-sm mt-12">
+        <p>&copy; Samsung Software Academy for Youth. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>

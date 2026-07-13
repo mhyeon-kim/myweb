@@ -9,6 +9,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
@@ -30,20 +31,30 @@
         .page-view {
             transition: opacity 0.25s ease-in-out;
         }
+        /* 스킬 태그 전환을 위한 트랜지션 */
+        .skill-tab-pane {
+            transition: all 0.3s ease-in-out;
+        }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans flex flex-col min-h-screen">
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 font-sans flex flex-col min-h-screen transition-colors duration-300">
 
     <!-- 2-2. 공통 네비게이션 바 컴포넌트 -->
-    <header class="fixed top-0 left-0 w-full bg-slate-900/95 backdrop-blur-md shadow-md z-50 border-b border-slate-800">
+    <header class="fixed top-0 left-0 w-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-md shadow-md z-50 border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
         <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#home" class="text-2xl font-extrabold text-blue-500 tracking-wider">I AM.</a>
-            <nav id="nav-menu" class="flex space-x-6">
-                <!-- 현재 페이지 활성화 하이라이트는 JavaScript에서 동적으로 완벽하게 제어됩니다 -->
-                <a href="#home" data-route="home" class="nav-link text-sm font-semibold py-1 transition-colors duration-200">About</a>
-                <a href="#education" data-route="education" class="nav-link text-sm font-semibold py-1 transition-colors duration-200">Education</a>
-                <a href="#activities" data-route="activities" class="nav-link text-sm font-semibold py-1 transition-colors duration-200">Activities</a>
-            </nav>
+            <a href="#home" class="text-2xl font-extrabold text-blue-600 dark:text-blue-500 tracking-wider">I AM.</a>
+            <div class="flex items-center space-x-6">
+                <nav id="nav-menu" class="flex space-x-6">
+                    <!-- 현재 페이지 활성화 하이라이트는 JavaScript에서 동적으로 제어됩니다 -->
+                    <a href="#home" data-route="home" class="nav-link text-sm font-semibold py-1 transition-colors duration-200">About</a>
+                    <a href="#education" data-route="education" class="nav-link text-sm font-semibold py-1 transition-colors duration-200">Education</a>
+                    <a href="#activities" data-route="activities" class="nav-link text-sm font-semibold py-1 transition-colors duration-200">Activities</a>
+                </nav>
+                <!-- 다크모드 토글 버튼 -->
+                <button id="dark-mode-toggle" class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors duration-200" aria-label="다크 모드 토글">
+                    <i id="dark-mode-icon" class="fas fa-moon text-lg"></i>
+                </button>
+            </div>
         </div>
     </header>
 
@@ -71,49 +82,90 @@
 
             <!-- 프로필 및 핵심 역량 섹션 -->
             <div class="max-w-4xl mx-auto py-16 px-6">
-                <h2 class="text-3xl font-extrabold text-slate-900 text-center relative mb-12 pb-3 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-12 after:h-1 after:bg-blue-600 after:rounded">
+                <h2 class="text-3xl font-extrabold text-slate-900 dark:text-slate-100 text-center relative mb-12 pb-3 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-12 after:h-1 after:bg-blue-600 after:rounded">
                     About Me
                 </h2>
                 <div class="flex flex-col md:flex-row gap-12 items-center md:items-start">
                     <!-- 아바타 플레이스홀더 이미지 대체 영역 -->
-                    <div class="flex-shrink-0 w-44 h-44 bg-gradient-to-tr from-slate-200 to-slate-300 rounded-3xl flex items-center justify-center text-slate-500 shadow-inner">
+                    <div class="flex-shrink-0 w-44 h-44 bg-gradient-to-tr from-slate-200 to-slate-300 dark:from-slate-800 dark:to-slate-700 rounded-3xl flex items-center justify-center text-slate-500 dark:text-slate-400 shadow-inner">
                         <i class="fas fa-laptop-code text-6xl"></i>
                     </div>
                     <!-- 프로필 상세 정보 -->
                     <div class="flex-grow">
-                        <p class="text-lg leading-relaxed text-slate-600 mb-6 font-normal">
+                        <p class="text-lg leading-relaxed text-slate-600 dark:text-slate-300 mb-6 font-normal">
                             대학에서 컴퓨터학을 전공하며 백엔드 아키텍처 설계 및 대규모 트래픽 분산 처리에 깊은 관심을 가져왔습니다. 
-                            다양한 연합 활동과 실무형 융합 프로젝트에서 <strong class="text-blue-600 font-semibold">팀장 및 서버</strong> 역할을 역임하며, 
+                            다양한 연합 활동과 실무형 융합 프로젝트에서 <strong class="text-blue-600 dark:text-blue-400 font-semibold">팀장 및 서버</strong> 역할을 역임하며, 
                             단순 기능 구현을 넘어 원활한 소통 프로세스를 구축하고 성능을 점진적으로 개선해 나가는 보람을 배우고 있습니다.
                         </p>
                         
-                        <!-- 핵심 요약 정보 및 역량 기술 스택 -->
-                        <div class="bg-slate-100 border border-slate-200/60 rounded-2xl p-6 shadow-sm">
-                            <h3 class="text-md font-bold text-slate-800 mb-4 tracking-wide uppercase"><i class="fas fa-cubes text-blue-500 mr-2"></i> 핵심 전공 역량</h3>
-                            <div class="space-y-4">
-                                <div>
-                                    <span class="text-xs font-bold text-slate-500 block mb-1.5 uppercase">Backend & Web Frameworks</span>
+                        <!-- 핵심 요약 정보 및 역량 기술 스택 탭 시스템 -->
+                        <div class="bg-slate-100 dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 rounded-2xl p-6 shadow-sm transition-colors duration-300">
+                            <h3 class="text-md font-bold text-slate-800 dark:text-slate-200 mb-4 tracking-wide uppercase flex items-center">
+                                <i class="fas fa-cubes text-blue-500 dark:text-blue-400 mr-2"></i> 핵심 전공 역량
+                            </h3>
+                            
+                            <!-- 스택 카테고리 탭 버튼 그룹 -->
+                            <div class="flex flex-wrap border-b border-slate-200 dark:border-slate-800 mb-4">
+                                <button onclick="switchSkillTab('backend')" id="tab-btn-backend" class="skill-tab-btn py-2 px-4 text-xs font-bold border-b-2 border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400 tracking-wide mr-1 focus:outline-none transition-all duration-200">
+                                    Backend
+                                </button>
+                                <button onclick="switchSkillTab('frontend')" id="tab-btn-frontend" class="skill-tab-btn py-2 px-4 text-xs font-bold border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 tracking-wide mr-1 focus:outline-none transition-all duration-200">
+                                    Frontend & Apps
+                                </button>
+                                <button onclick="switchSkillTab('database')" id="tab-btn-database" class="skill-tab-btn py-2 px-4 text-xs font-bold border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 tracking-wide mr-1 focus:outline-none transition-all duration-200">
+                                    Database
+                                </button>
+                                <button onclick="switchSkillTab('infra')" id="tab-btn-infra" class="skill-tab-btn py-2 px-4 text-xs font-bold border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 tracking-wide focus:outline-none transition-all duration-200">
+                                    Cloud & Infra
+                                </button>
+                            </div>
+
+                            <!-- 스택 카드 본체 플레이스 (동적 전환) -->
+                            <div class="min-h-[80px]">
+                                <!-- Backend Tab Panel -->
+                                <div id="tab-pane-backend" class="skill-tab-pane block opacity-100">
+                                    <span class="text-[11px] font-bold text-slate-400 dark:text-slate-500 block mb-2 uppercase">Backend & Web Frameworks</span>
                                     <div class="flex flex-wrap gap-2">
-                                        <span class="bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold px-3 py-1 rounded-md">Spring Boot</span>
-                                        <span class="bg-cyan-50 border border-cyan-200 text-cyan-700 text-xs font-bold px-3 py-1 rounded-md">React</span>
-                                        <span class="bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold px-3 py-1 rounded-md">FastAPI</span>
-                                        <span class="bg-lime-50 border border-lime-200 text-lime-700 text-xs font-bold px-3 py-1 rounded-md">Node.js</span>
-                                        <span class="bg-yellow-50 border border-yellow-200 text-yellow-700 text-xs font-bold px-3 py-1 rounded-md">Python</span>
+                                        <span class="bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/50 text-blue-700 dark:text-blue-300 text-xs font-bold px-3 py-1.5 rounded-md shadow-sm">Spring Boot</span>
+                                        <span class="bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/50 text-emerald-700 dark:text-emerald-300 text-xs font-bold px-3 py-1.5 rounded-md shadow-sm">FastAPI</span>
+                                        <span class="bg-lime-50 dark:bg-lime-950/40 border border-lime-200 dark:border-lime-900/50 text-lime-700 dark:text-lime-300 text-xs font-bold px-3 py-1.5 rounded-md shadow-sm">Node.js</span>
+                                        <span class="bg-yellow-50 dark:bg-yellow-950/40 border border-yellow-200 dark:border-yellow-900/50 text-yellow-700 dark:text-yellow-300 text-xs font-bold px-3 py-1.5 rounded-md shadow-sm">Python</span>
                                     </div>
                                 </div>
-                                <div class="pt-2 border-t border-slate-200/50">
-                                    <span class="text-xs font-bold text-slate-500 block mb-1.5 uppercase">Data & Cloud Infrastructure</span>
+
+                                <!-- Frontend & Apps Panel -->
+                                <div id="tab-pane-frontend" class="skill-tab-pane hidden opacity-0">
+                                    <span class="text-[11px] font-bold text-slate-400 dark:text-slate-500 block mb-2 uppercase">Client Platforms</span>
                                     <div class="flex flex-wrap gap-2">
-                                        <span class="bg-slate-200 text-slate-800 text-xs font-bold px-3 py-1 rounded-md">MySQL</span>
-                                        <span class="bg-slate-200 text-slate-800 text-xs font-bold px-3 py-1 rounded-md">MariaDB</span>
-                                        <span class="bg-slate-200 text-slate-800 text-xs font-bold px-3 py-1 rounded-md">Oracle DB</span>
-                                        <span class="bg-slate-200 text-slate-800 text-xs font-bold px-3 py-1 rounded-md">AWS (EC2/RDS/VPC/S3)</span>
-                                        <span class="bg-slate-200 text-slate-800 text-xs font-bold px-3 py-1 rounded-md">Docker</span>
-                                        <span class="bg-slate-200 text-slate-800 text-xs font-bold px-3 py-1 rounded-md">GitHub Actions</span>
-                                        <span class="bg-slate-200 text-slate-800 text-xs font-bold px-3 py-1 rounded-md">OpenCV</span>
+                                        <span class="bg-cyan-50 dark:bg-cyan-950/40 border border-cyan-200 dark:border-cyan-900/50 text-cyan-700 dark:text-cyan-300 text-xs font-bold px-3 py-1.5 rounded-md shadow-sm">React</span>
+                                        <span class="bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-900/50 text-indigo-700 dark:text-indigo-300 text-xs font-bold px-3 py-1.5 rounded-md shadow-sm">Kotlin (Android)</span>
+                                        <span class="bg-orange-50 dark:bg-orange-950/40 border border-orange-200 dark:border-orange-900/50 text-orange-700 dark:text-orange-300 text-xs font-bold px-3 py-1.5 rounded-md shadow-sm">Unity</span>
+                                        <span class="bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/50 text-rose-700 dark:text-rose-300 text-xs font-bold px-3 py-1.5 rounded-md shadow-sm">Lua Scripting</span>
+                                    </div>
+                                </div>
+
+                                <!-- Database Panel -->
+                                <div id="tab-pane-database" class="skill-tab-pane hidden opacity-0">
+                                    <span class="text-[11px] font-bold text-slate-400 dark:text-slate-500 block mb-2 uppercase">Relational DBMS</span>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold px-3 py-1.5 rounded-md shadow-sm">MySQL</span>
+                                        <span class="bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold px-3 py-1.5 rounded-md shadow-sm">MariaDB</span>
+                                        <span class="bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold px-3 py-1.5 rounded-md shadow-sm">Oracle DB</span>
+                                    </div>
+                                </div>
+
+                                <!-- Cloud & Infra Panel -->
+                                <div id="tab-pane-infra" class="skill-tab-pane hidden opacity-0">
+                                    <span class="text-[11px] font-bold text-slate-400 dark:text-slate-500 block mb-2 uppercase">Infrastructure & Automation</span>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold px-3 py-1.5 rounded-md shadow-sm">AWS (EC2/RDS/VPC/S3)</span>
+                                        <span class="bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold px-3 py-1.5 rounded-md shadow-sm">Docker</span>
+                                        <span class="bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold px-3 py-1.5 rounded-md shadow-sm">GitHub Actions</span>
+                                        <span class="bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold px-3 py-1.5 rounded-md shadow-sm">OpenCV</span>
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -121,22 +173,58 @@
         </section>
 
 
-        <!-- ================= PAGE 2: EDUCATION ================= -->
-        <section id="page-education" class="page-view hidden max-w-4xl mx-auto py-16 px-6 min-h-[60vh]">
-            <h2 class="text-3xl font-extrabold text-slate-900 text-center relative mb-12 pb-3 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-12 after:h-1 after:bg-blue-600 after:rounded">
+        <!-- ================= PAGE 2: EDUCATION & CREDENTIALS ================= -->
+        <section id="page-education" class="page-view hidden max-w-4xl mx-auto py-16 px-6">
+            <h2 class="text-3xl font-extrabold text-slate-900 dark:text-slate-100 text-center relative mb-12 pb-3 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-12 after:h-1 after:bg-blue-600 after:rounded">
                 Education
             </h2>
-            <div class="bg-white border-l-4 border-blue-500 shadow-md rounded-r-2xl p-8 flex flex-col md:flex-row gap-6 items-start md:items-center hover:shadow-lg transition-all duration-300">
-                <div class="p-4 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center">
+            
+            <!-- 대학 학력 카드 -->
+            <div class="bg-white dark:bg-slate-900 border-l-4 border-blue-500 shadow-md dark:shadow-slate-950/50 rounded-r-2xl p-8 flex flex-col md:flex-row gap-6 items-start md:items-center hover:shadow-lg transition-all duration-300 border border-slate-100 dark:border-slate-800/80 mb-12">
+                <div class="p-4 bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center">
                     <i class="fas fa-graduation-cap text-4xl"></i>
                 </div>
                 <div>
-                    <h3 class="text-2xl font-bold text-slate-900 mb-1">동덕여자대학교</h3>
-                    <p class="text-blue-500 font-bold mb-3">컴퓨터학과 (재학 / 졸업예정)</p>
-                    <p class="text-slate-600 leading-relaxed">
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-1">동덕여자대학교</h3>
+                    <p class="text-blue-500 dark:text-blue-400 font-bold mb-3">컴퓨터학과 (졸업)</p>
+                    <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
                         컴퓨터 구조, 알고리즘, 데이터베이스 등 주요 전공 개념을 체계적으로 다져왔습니다. 
                         단순 이론 습득에서 멈추지 않고 시스템 성능 분석과 효율적인 데이터 스키마 관리를 현업 멘토링 프로그램 및 실무 프로젝트에 끊임없이 투영하여 고도화하고 있습니다.
                     </p>
+                </div>
+            </div>
+
+            <!-- 자격증 섹션 -->
+            <div>
+                <h3 class="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-6 flex items-center">
+                    <i class="fas fa-certificate text-blue-500 mr-3"></i> Certifications & Credentials
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <!-- 정보처리기사 -->
+                    <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 shadow-sm border border-slate-100 dark:border-slate-800/80 flex items-center gap-4 hover:shadow-md transition-shadow duration-300">
+                        <div class="p-3 bg-blue-50 dark:bg-blue-950/30 text-blue-600 dark:text-blue-400 rounded-xl">
+                            <i class="fas fa-file-invoice text-2xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-extrabold text-slate-900 dark:text-slate-100">정보처리기사</h4>
+                            <p class="text-xs text-slate-400 dark:text-slate-500 font-medium">한국산업인력공단 (Q-Net)</p>
+                            <span class="inline-block mt-2 text-xs bg-blue-50 dark:bg-blue-950/55 text-blue-700 dark:text-blue-300 font-bold px-2 py-0.5 rounded">2025년 취득</span>
+                        </div>
+                    </div>
+
+                    <!-- SQLD -->
+                    <div class="bg-white dark:bg-slate-900 rounded-2xl p-6 shadow-sm border border-slate-100 dark:border-slate-800/80 flex items-center gap-4 hover:shadow-md transition-shadow duration-300">
+                        <div class="p-3 bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-400 rounded-xl">
+                            <i class="fas fa-database text-2xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-extrabold text-slate-900 dark:text-slate-100">SQLD (SQL 개발자)</h4>
+                            <p class="text-xs text-slate-400 dark:text-slate-500 font-medium">한국데이터산업진흥원 (K-Data)</p>
+                            <span class="inline-block mt-2 text-xs bg-emerald-50 dark:bg-emerald-950/55 text-emerald-700 dark:text-emerald-300 font-bold px-2 py-0.5 rounded">2024년 취득</span>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -144,32 +232,91 @@
 
         <!-- ================= PAGE 3: ACTIVITIES ================= -->
         <section id="page-activities" class="page-view hidden max-w-4xl mx-auto py-16 px-6">
-            <h2 class="text-3xl font-extrabold text-slate-900 text-center mb-1">Activities & Projects</h2>
-            <p class="text-center text-slate-500 mb-12 text-sm">💡 각 활동 및 프로젝트 카드를 클릭하면 사용 기술 스택과 상세 수행 이력을 확인할 수 있습니다.</p>
+            
+            <!-- 수상 내역 (Honors & Awards) 섹션 추가 -->
+            <div class="mb-14">
+                <h2 class="text-3xl font-extrabold text-slate-900 dark:text-slate-100 text-center relative mb-10 pb-3 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-12 after:h-1 after:bg-blue-600 after:rounded">
+                    Honors & Awards
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    
+                    <!-- 2025 한이음 드림업 장려상 -->
+                    <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800/80 flex gap-4 hover:border-blue-500 dark:hover:border-blue-500 transition-all duration-300 group">
+                        <div class="p-3.5 bg-amber-50 dark:bg-amber-950/30 text-amber-500 rounded-xl flex-shrink-0 self-start group-hover:scale-110 transition-transform">
+                            <i class="fas fa-trophy text-2xl"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-bold text-amber-600 dark:text-amber-400 block tracking-wider uppercase">장려상 / 2025</span>
+                            <h4 class="font-bold text-slate-900 dark:text-slate-100 text-sm mt-0.5">2025 한이음 드림업 공모전</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">한국정보처리협회 주관</p>
+                        </div>
+                    </div>
+
+                    <!-- ACK 2025 논문경진대회 동상 -->
+                    <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800/80 flex gap-4 hover:border-blue-500 dark:hover:border-blue-500 transition-all duration-300 group">
+                        <div class="p-3.5 bg-amber-50 dark:bg-amber-950/30 text-amber-500 rounded-xl flex-shrink-0 self-start group-hover:scale-110 transition-transform">
+                            <i class="fas fa-medal text-2xl"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-bold text-amber-600 dark:text-amber-400 block tracking-wider uppercase">동상 / 2025</span>
+                            <h4 class="font-bold text-slate-900 dark:text-slate-100 text-sm mt-0.5">ACK 2025 학술대회 논문경진대회</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">한국정보처리학회 주관</p>
+                        </div>
+                    </div>
+
+                    <!-- 2024 한이음 입선 -->
+                    <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800/80 flex gap-4 hover:border-blue-500 dark:hover:border-blue-500 transition-all duration-300 group">
+                        <div class="p-3.5 bg-amber-50 dark:bg-amber-950/30 text-amber-500 rounded-xl flex-shrink-0 self-start group-hover:scale-110 transition-transform">
+                            <i class="fas fa-award text-2xl"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-bold text-amber-600 dark:text-amber-400 block tracking-wider uppercase">입선 / 2024</span>
+                            <h4 class="font-bold text-slate-900 dark:text-slate-100 text-sm mt-0.5">2024 한이음 ICT 멘토링 공모전</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">한국정보처리협회 주관</p>
+                        </div>
+                    </div>
+
+                    <!-- 교내 경진대회 최우수상 -->
+                    <div class="bg-white dark:bg-slate-900 p-5 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800/80 flex gap-4 hover:border-blue-500 dark:hover:border-blue-500 transition-all duration-300 group">
+                        <div class="p-3.5 bg-blue-50 dark:bg-blue-950/30 text-blue-600 dark:text-blue-400 rounded-xl flex-shrink-0 self-start group-hover:scale-110 transition-transform">
+                            <i class="fas fa-crown text-2xl"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-bold text-blue-600 dark:text-blue-400 block tracking-wider uppercase">최우수상 / 2024</span>
+                            <h4 class="font-bold text-slate-900 dark:text-slate-100 text-sm mt-0.5">교내 소프트웨어 경진대회</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">동덕여자대학교 주관</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <h2 class="text-3xl font-extrabold text-slate-900 dark:text-slate-100 text-center mb-1">Activities & Projects</h2>
+            <p class="text-center text-slate-500 dark:text-slate-400 mb-12 text-sm">💡 각 활동 및 프로젝트 카드를 클릭하면 사용 기술 스택과 상세 수행 이력을 확인할 수 있습니다.</p>
             
             <!-- 세로형 타임라인 레이아웃 -->
-            <div class="relative border-l-2 border-slate-200 ml-4 md:ml-8 pl-8 md:pl-10 space-y-12">
+            <div class="relative border-l-2 border-slate-200 dark:border-slate-800 ml-4 md:ml-8 pl-8 md:pl-10 space-y-12">
                 
                 <!-- 2025 한이음 드림업 -->
                 <div class="relative group cursor-pointer" onclick="openModal('popup-hanium25')">
                     <!-- 타임라인 버블 노드 -->
-                    <div class="absolute -left-[45px] top-1.5 w-7 h-7 rounded-full bg-blue-600 ring-4 ring-blue-100 flex items-center justify-center text-white text-xs transition-transform group-hover:scale-110">
+                    <div class="absolute -left-[45px] top-1.5 w-7 h-7 rounded-full bg-blue-600 ring-4 ring-blue-100 dark:ring-blue-950/50 flex items-center justify-center text-white text-xs transition-transform group-hover:scale-110">
                         <i class="fas fa-award"></i>
                     </div>
-                    <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm hover:shadow-md hover:translate-x-1.5 transition-all duration-200">
-                        <span class="text-xs font-bold text-blue-600 uppercase tracking-wider block mb-1">2025 대외활동</span>
-                        <h3 class="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">2025 한이음 드림업 (ICT 멘토링)</h3>
+                    <div class="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/80 rounded-2xl p-6 shadow-sm hover:shadow-md hover:translate-x-1.5 transition-all duration-200">
+                        <span class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider block mb-1">2025 대외활동</span>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">2025 한이음 드림업 (ICT 멘토링)</h3>
                         <div class="flex flex-wrap gap-2 mt-2.5 mb-4">
-                            <span class="bg-amber-100 text-amber-800 text-[11px] font-bold px-2.5 py-0.5 rounded-full">👑 팀장</span>
-                            <span class="bg-blue-50 text-blue-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">Spring Boot</span>
-                            <span class="bg-emerald-50 text-emerald-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">FastAPI</span>
-                            <span class="bg-indigo-50 text-indigo-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">Infra</span>
-                            <span class="bg-sky-50 text-sky-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">MySQL</span>
-                            <a href="https://github.com/orgs/Comgongjineung/repositories" target="_blank" onclick="event.stopPropagation();" class="inline-flex items-center gap-1 bg-slate-900 hover:bg-slate-800 text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full transition-colors ml-auto">
+                            <span class="bg-amber-100 dark:bg-amber-950/50 text-amber-800 dark:text-amber-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full">👑 팀장</span>
+                            <span class="bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full">Spring Boot</span>
+                            <span class="bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full">FastAPI</span>
+                            <span class="bg-indigo-50 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full">Infra</span>
+                            <span class="bg-sky-50 dark:bg-sky-950/40 text-sky-700 dark:text-sky-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full">MySQL</span>
+                            <a href="https://github.com/orgs/Comgongjineung/repositories" target="_blank" onclick="event.stopPropagation();" class="inline-flex items-center gap-1 bg-slate-900 hover:bg-slate-800 dark:bg-slate-850 dark:hover:bg-slate-700 text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full transition-colors ml-auto">
                                 <i class="fab fa-github"></i> GitHub
                             </a>
                         </div>
-                        <p class="text-slate-600 text-sm leading-relaxed">
+                        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
                             AI • AR 기술을 융합한 개인 전시회 가이드 모바일 앱 서비스를 전체 총괄 및 리드하였습니다.
                         </p>
                     </div>
@@ -178,23 +325,23 @@
                 <!-- 전공 과목 프로젝트 (로컬푸드 직거래 쇼핑몰) -->
                 <div class="relative group cursor-pointer" onclick="openModal('popup-localfood')">
                     <!-- 타임라인 버블 노드 -->
-                    <div class="absolute -left-[45px] top-1.5 w-7 h-7 rounded-full bg-emerald-600 ring-4 ring-emerald-100 flex items-center justify-center text-white text-xs transition-transform group-hover:scale-110">
+                    <div class="absolute -left-[45px] top-1.5 w-7 h-7 rounded-full bg-emerald-600 ring-4 ring-emerald-100 dark:ring-emerald-950/50 flex items-center justify-center text-white text-xs transition-transform group-hover:scale-110">
                         <i class="fas fa-store"></i>
                     </div>
-                    <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm hover:shadow-md hover:translate-x-1.5 transition-all duration-200">
-                        <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider block mb-1">전공 교과목 프로젝트</span>
-                        <h3 class="text-xl font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">로컬푸드 직거래 웹 쇼핑몰</h3>
+                    <div class="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/80 rounded-2xl p-6 shadow-sm hover:shadow-md hover:translate-x-1.5 transition-all duration-200">
+                        <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider block mb-1">전공 교과목 프로젝트</span>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">로컬푸드 직거래 웹 쇼핑몰</h3>
                         <div class="flex flex-wrap gap-2 mt-2.5 mb-4">
-                            <span class="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2.5 py-0.5 rounded-full">Full Stack</span>
-                            <span class="bg-blue-50 text-blue-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">Spring Boot</span>
-                            <span class="bg-cyan-50 text-cyan-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">React</span>
-                            <span class="bg-rose-50 text-rose-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">Oracle DB</span>
-                            <a href="https://github.com/orgs/25localeat/repositories" target="_blank" onclick="event.stopPropagation();" class="inline-flex items-center gap-1 bg-slate-900 hover:bg-slate-800 text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full transition-colors ml-auto">
+                            <span class="bg-emerald-100 dark:bg-emerald-950/50 text-emerald-800 dark:text-emerald-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full">Full Stack</span>
+                            <span class="bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full">Spring Boot</span>
+                            <span class="bg-cyan-50 dark:bg-cyan-950/40 text-cyan-700 dark:text-cyan-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full">React</span>
+                            <span class="bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full">Oracle DB</span>
+                            <a href="https://github.com/orgs/25localeat/repositories" target="_blank" onclick="event.stopPropagation();" class="inline-flex items-center gap-1 bg-slate-900 hover:bg-slate-800 dark:bg-slate-850 dark:hover:bg-slate-700 text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full transition-colors ml-auto">
                                 <i class="fab fa-github"></i> GitHub
                             </a>
                         </div>
-                        <p class="text-slate-600 text-sm leading-relaxed">
-                            Spring Boot 백엔드와 React 프론트엔드를 고도로 통합하고, Oracle DB 모델링을 거쳐 개발한 전용 직거래 쇼핑 웹앱 서비스입니다.
+                        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                            Spring Boot 백엔드와 React 프론트엔드를 고도로 통합하고, Oracle DB 모델링을 거쳐 개발한 전용 직거래 쇼핑 웹 서비스입니다.
                         </p>
                     </div>
                 </div>
@@ -202,23 +349,23 @@
                 <!-- 2024 한이음 -->
                 <div class="relative group cursor-pointer" onclick="openModal('popup-hanium24')">
                     <!-- 타임라인 버블 노드 -->
-                    <div class="absolute -left-[45px] top-1.5 w-7 h-7 rounded-full bg-blue-500 ring-4 ring-blue-100 flex items-center justify-center text-white text-xs transition-transform group-hover:scale-110">
+                    <div class="absolute -left-[45px] top-1.5 w-7 h-7 rounded-full bg-blue-500 ring-4 ring-blue-100 dark:ring-blue-950/50 flex items-center justify-center text-white text-xs transition-transform group-hover:scale-110">
                         <i class="fas fa-circle-check"></i>
                     </div>
-                    <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm hover:shadow-md hover:translate-x-1.5 transition-all duration-200">
-                        <span class="text-xs font-bold text-blue-500 uppercase tracking-wider block mb-1">2024 대외활동</span>
-                        <h3 class="text-xl font-bold text-slate-900 group-hover:text-blue-500 transition-colors">2024 한이음 ICT 멘토링</h3>
+                    <div class="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/80 rounded-2xl p-6 shadow-sm hover:shadow-md hover:translate-x-1.5 transition-all duration-200">
+                        <span class="text-xs font-bold text-blue-500 dark:text-blue-400 uppercase tracking-wider block mb-1">2024 대외활동</span>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors">2024 한이음 ICT 멘토링</h3>
                         <div class="flex flex-wrap gap-2 mt-2.5 mb-4">
-                            <span class="bg-amber-100 text-amber-800 text-[11px] font-bold px-2.5 py-0.5 rounded-full">👑 팀장</span>
-                            <span class="bg-slate-100 text-slate-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">Python</span>
-                            <span class="bg-slate-100 text-slate-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">OpenCV</span>
-                            <span class="bg-lime-50 text-lime-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">Node.js</span>
-                            <span class="bg-teal-50 text-teal-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">MariaDB</span>
-                            <a href="https://github.com/mhyeon-kim/SmartMirror" target="_blank" onclick="event.stopPropagation();" class="inline-flex items-center gap-1 bg-slate-900 hover:bg-slate-800 text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full transition-colors ml-auto">
+                            <span class="bg-amber-100 dark:bg-amber-950/50 text-amber-800 dark:text-amber-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full">👑 팀장</span>
+                            <span class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full">Python</span>
+                            <span class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full">OpenCV</span>
+                            <span class="bg-lime-50 dark:bg-lime-950/40 text-lime-700 dark:text-lime-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full">Node.js</span>
+                            <span class="bg-teal-50 dark:bg-teal-950/40 text-teal-700 dark:text-teal-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full">MariaDB</span>
+                            <a href="https://github.com/mhyeon-kim/SmartMirror" target="_blank" onclick="event.stopPropagation();" class="inline-flex items-center gap-1 bg-slate-900 hover:bg-slate-800 dark:bg-slate-850 dark:hover:bg-slate-700 text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full transition-colors ml-auto">
                                 <i class="fab fa-github"></i> GitHub
                             </a>
                         </div>
-                        <p class="text-slate-600 text-sm leading-relaxed">
+                        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
                             컴퓨터 비전 기술을 통한 실시간 AI 체형 및 자세 분석 하드웨어 연동 스마트 미러 서비스를 성공적으로 마쳤습니다.
                         </p>
                     </div>
@@ -227,21 +374,21 @@
                 <!-- UMC -->
                 <div class="relative group cursor-pointer" onclick="openModal('popup-umc')">
                     <!-- 타임라인 버블 노드 -->
-                    <div class="absolute -left-[45px] top-1.5 w-7 h-7 rounded-full bg-slate-500 ring-4 ring-slate-100 flex items-center justify-center text-white text-xs transition-transform group-hover:scale-110">
+                    <div class="absolute -left-[45px] top-1.5 w-7 h-7 rounded-full bg-slate-500 ring-4 ring-slate-100 dark:ring-slate-800/80 flex items-center justify-center text-white text-xs transition-transform group-hover:scale-110">
                         <i class="fas fa-mobile-alt"></i>
                     </div>
-                    <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm hover:shadow-md hover:translate-x-1.5 transition-all duration-200">
-                        <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block mb-1">연합 IT 동아리</span>
-                        <h3 class="text-xl font-bold text-slate-900 group-hover:text-slate-700 transition-colors">UMC (Android 앱 개발)</h3>
+                    <div class="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/80 rounded-2xl p-6 shadow-sm hover:shadow-md hover:translate-x-1.5 transition-all duration-200">
+                        <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block mb-1">연합 IT 동아리</span>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition-colors">UMC (Android 앱 개발)</h3>
                         <div class="flex flex-wrap gap-2 mt-2.5 mb-4">
-                            <span class="bg-purple-100 text-purple-800 text-[11px] font-bold px-2.5 py-0.5 rounded-full">Android</span>
-                            <span class="bg-purple-100 text-purple-800 text-[11px] font-bold px-2.5 py-0.5 rounded-full">App Architecture</span>
-                            <a href="https://github.com/mhyeon-kim/AnDDeul" target="_blank" onclick="event.stopPropagation();" class="inline-flex items-center gap-1 bg-slate-900 hover:bg-slate-800 text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full transition-colors ml-auto">
+                            <span class="bg-purple-100 dark:bg-purple-950/50 text-purple-800 dark:text-purple-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full">Android</span>
+                            <span class="bg-purple-100 dark:bg-purple-950/50 text-purple-800 dark:text-purple-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full">App Architecture</span>
+                            <a href="https://github.com/mhyeon-kim/AnDDeul" target="_blank" onclick="event.stopPropagation();" class="inline-flex items-center gap-1 bg-slate-900 hover:bg-slate-800 dark:bg-slate-850 dark:hover:bg-slate-700 text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full transition-colors ml-auto">
                                 <i class="fab fa-github"></i> GitHub
                             </a>
                         </div>
-                        <p class="text-slate-600 text-sm leading-relaxed">
-                            다양한 직군의 지망생들과 연합 서비스를 제작하며 클라이언트 개발 지식과 백엔드 데이터 최적화 지향 협업 경험을 획득했습니다.
+                        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                            다양한 직무의 지망생들과 연합 서비스를 제작하며 클라이언트 개발 지식과 백엔드 데이터 최적화 지향 협업 경험을 획득했습니다.
                         </p>
                     </div>
                 </div>
@@ -249,20 +396,20 @@
                 <!-- NPC -->
                 <div class="relative group cursor-pointer" onclick="openModal('popup-npc')">
                     <!-- 타임라인 버블 노드 -->
-                    <div class="absolute -left-[45px] top-1.5 w-7 h-7 rounded-full bg-slate-400 ring-4 ring-slate-100 flex items-center justify-center text-white text-xs transition-transform group-hover:scale-110">
+                    <div class="absolute -left-[45px] top-1.5 w-7 h-7 rounded-full bg-slate-400 ring-4 ring-slate-100 dark:ring-slate-800/80 flex items-center justify-center text-white text-xs transition-transform group-hover:scale-110">
                         <i class="fas fa-gamepad"></i>
                     </div>
-                    <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm hover:shadow-md hover:translate-x-1.5 transition-all duration-200">
-                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">교내 학술 동아리</span>
-                        <h3 class="text-xl font-bold text-slate-900 group-hover:text-slate-600 transition-colors">NPC (교내 게임 개발 동아리)</h3>
+                    <div class="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800/80 rounded-2xl p-6 shadow-sm hover:shadow-md hover:translate-x-1.5 transition-all duration-200">
+                        <span class="text-xs font-bold text-slate-400 dark:text-slate-550 uppercase tracking-wider block mb-1">교내 학술 동아리</span>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors">NPC (교내 게임 개발 동아리)</h3>
                         <div class="flex flex-wrap gap-2 mt-2.5 mb-4">
-                            <span class="bg-orange-50 text-orange-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">Lua</span>
-                            <span class="bg-purple-50 text-purple-700 text-[11px] font-bold px-2.5 py-0.5 rounded-full">Unity</span>
-                            <a href="https://github.com/mhyeon-kim/Summer_Vacation" target="_blank" onclick="event.stopPropagation();" class="inline-flex items-center gap-1 bg-slate-900 hover:bg-slate-800 text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full transition-colors ml-auto">
+                            <span class="bg-orange-50 dark:bg-orange-950/40 text-orange-700 dark:text-orange-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full">Lua</span>
+                            <span class="bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full">Unity</span>
+                            <a href="https://github.com/mhyeon-kim/Summer_Vacation" target="_blank" onclick="event.stopPropagation();" class="inline-flex items-center gap-1 bg-slate-900 hover:bg-slate-800 dark:bg-slate-850 dark:hover:bg-slate-700 text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full transition-colors ml-auto">
                                 <i class="fab fa-github"></i> GitHub
                             </a>
                         </div>
-                        <p class="text-slate-600 text-sm leading-relaxed">
+                        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
                             기획 및 아트 부원들과 유기적인 협업 모델을 구상하고 OOP 설계 기법에 기반해 핵심 클라이언트 인터랙션 로직을 제작해 보았습니다.
                         </p>
                     </div>
@@ -274,7 +421,7 @@
     </main>
 
     <!-- 공통 푸터 -->
-    <footer class="bg-slate-900 text-slate-500 py-10 border-t border-slate-800 text-center">
+    <footer class="bg-slate-900 text-slate-500 py-10 border-t border-slate-800 text-center transition-colors duration-300">
         <p class="text-sm">&copy; 2026 Kim Mihyun. Powered by Gemini & Tailwind CSS</p>
     </footer>
 
@@ -282,130 +429,133 @@
     <div id="modal-overlay" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-[100] hidden items-center justify-center p-4" onclick="closeModalOnBg(event)">
         
         <!-- 로컬푸드 직거래 쇼핑몰 상세 모달 -->
-        <div id="popup-localfood" class="modal-content bg-white rounded-2xl max-w-lg w-full shadow-2xl relative p-8 hidden animate-[fadeIn_0.2s_ease-out]">
-            <button class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 text-2xl" onclick="closeActiveModal()">&times;</button>
-            <span class="text-xs font-bold text-emerald-600 block mb-1">전공 교과목 프로젝트</span>
-            <h3 class="text-2xl font-black text-slate-900 mb-3">로컬푸드 직거래 웹 쇼핑몰</h3>
-            <div class="mb-4 flex items-center justify-between">
-                <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-md">풀스택 아키텍처 및 관계형 DB 모델링</span>
-                <a href="https://github.com/orgs/25localeat/repositories" target="_blank" class="inline-flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-3 py-1 rounded-md transition-colors">
+        <div id="popup-localfood" class="modal-content bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full shadow-2xl relative p-8 hidden animate-[fadeIn_0.2s_ease-out] border dark:border-slate-800 transition-colors duration-300">
+            <button class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-2xl" onclick="closeActiveModal()">&times;</button>
+            <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 block mb-1">전공 교과목 프로젝트</span>
+            <h3 class="text-2xl font-black text-slate-900 dark:text-slate-100 mb-3">로컬푸드 직거래 웹 쇼핑몰</h3>
+            <div class="mb-4 flex flex-wrap gap-2 items-center justify-between">
+                <span class="bg-emerald-100 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 text-xs font-bold px-3 py-1 rounded-md">풀스택 아키텍처 및 관계형 DB 모델링</span>
+                <a href="https://github.com/orgs/25localeat/repositories" target="_blank" class="inline-flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 text-white text-xs font-bold px-3 py-1 rounded-md transition-colors">
                     <i class="fab fa-github"></i> GitHub 저장소
                 </a>
             </div>
-            <p class="text-slate-600 text-sm leading-relaxed mb-6">
+            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6">
                 유통 단계를 최소화하여 지역 경제 활성화를 목표로 한 전용 커머스 플랫폼입니다. <br>
                 <strong>React</strong> 기반의 동적이고 반응형을 고려한 UI를 구성하고, <strong>Spring Boot</strong>를 통해 강력하고 안전한 REST API 웹 서버를 연동하였습니다. 
                 특히 복잡한 트랜잭션 분리를 극대화하고 데이터 무결성을 보장하기 위해 <strong>Oracle DB</strong>의 정규화된 ERD 및 주문/결제 프로세스 롤백 제어 정책을 설계 및 도입한 가치 있는 풀스택 프로젝트입니다.
             </p>
             <div>
-                <strong class="text-xs font-bold text-slate-500 block mb-2 uppercase">Core Tech Stack</strong>
+                <strong class="text-xs font-bold text-slate-500 dark:text-slate-400 block mb-2 uppercase">Core Tech Stack</strong>
                 <div class="flex flex-wrap gap-2">
-                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">React</span>
-                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">Spring Boot</span>
-                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">Oracle Database</span>
-                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">MyBatis / JPA</span>
+                    <span class="bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold px-2.5 py-1 rounded">React</span>
+                    <span class="bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold px-2.5 py-1 rounded">Spring Boot</span>
+                    <span class="bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold px-2.5 py-1 rounded">Oracle Database</span>
+                    <span class="bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold px-2.5 py-1 rounded">MyBatis / JPA</span>
                 </div>
             </div>
         </div>
 
         <!-- 2025 드림업 상세 모달 -->
-        <div id="popup-hanium25" class="modal-content bg-white rounded-2xl max-w-lg w-full shadow-2xl relative p-8 hidden animate-[fadeIn_0.2s_ease-out]">
-            <button class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 text-2xl" onclick="closeActiveModal()">&times;</button>
-            <span class="text-xs font-bold text-blue-600 block mb-1">2025 한이음 드림업</span>
-            <h3 class="text-2xl font-black text-slate-900 mb-3">AI • AR 전시회 관람 가이드 앱</h3>
-            <div class="mb-4 flex items-center justify-between">
-                <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-md">👑 팀장 (Server Lead)</span>
-                <a href="https://github.com/orgs/Comgongjineung/repositories" target="_blank" class="inline-flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-3 py-1 rounded-md transition-colors">
+        <div id="popup-hanium25" class="modal-content bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full shadow-2xl relative p-8 hidden animate-[fadeIn_0.2s_ease-out] border dark:border-slate-800 transition-colors duration-300">
+            <button class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-2xl" onclick="closeActiveModal()">&times;</button>
+            <span class="text-xs font-bold text-blue-600 dark:text-blue-400 block mb-1">2025 한이음 드림업</span>
+            <h3 class="text-2xl font-black text-slate-900 dark:text-slate-100 mb-3">AI • AR 전시회 관람 가이드 앱</h3>
+            <div class="mb-4 flex flex-wrap gap-2 items-center justify-between">
+                <span class="bg-amber-100 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 text-xs font-bold px-3 py-1 rounded-md">👑 팀장 (Server Lead)</span>
+                <a href="https://github.com/orgs/Comgongjineung/repositories" target="_blank" class="inline-flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 text-white text-xs font-bold px-3 py-1 rounded-md transition-colors">
                     <i class="fab fa-github"></i> GitHub 저장소
                 </a>
             </div>
-            <p class="text-slate-600 text-sm leading-relaxed mb-6">
-                오프라인 미술 및 유물 전시장 전용 도슨트 기능을 원격 및 증강현실(AR) 디스플레이로 지원하는 융합 앱 플랫폼입니다. 
-                팀장으로서 서버 전반의 데이터 마일스톤 설계부터 효율성 및 트래픽 격리를 목적으로 Spring Boot 기반 API 서버와 FastAPI 가볍고 영리한 서빙 모듈을 조율하는 클라우드 아키텍처를 주도적으로 빌드하였습니다.
+            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6">
+                오프라인 미술 및 유물 전시장 전용 도슨트 기능을 원격 및 증강현실(AR) 디스플레이로 지원하는 융합 앱 플랫폼입니다. <br>
+                팀장으로서 서버 전반의 데이터 마일스톤 설계부터 효율성 및 트래픽 격리를 목적으로 Spring Boot 기반 API 서버와 FastAPI 가볍고 영리한 서빙 모듈을 조율하는 클라우드 아키텍처를 주도적으로 빌드하였습니다. <br>
+                <strong class="text-blue-600 dark:text-blue-400">✨ 공모전 성과:</strong> 한이음 드림업 공모전 장려상 수상 및 ACK 2025 학술대회 동상 수상작.
             </p>
             <div>
-                <strong class="text-xs font-bold text-slate-500 block mb-2 uppercase">Core Tech Stack</strong>
+                <strong class="text-xs font-bold text-slate-500 dark:text-slate-400 block mb-2 uppercase">Core Tech Stack</strong>
                 <div class="flex flex-wrap gap-2">
-                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">Spring Boot</span>
-                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">FastAPI</span>
-                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">AWS</span>
-                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">Docker</span>
-                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">GitHub Actions</span>
-                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">MySQL</span>
+                    <span class="bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold px-2.5 py-1 rounded">Spring Boot</span>
+                    <span class="bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold px-2.5 py-1 rounded">FastAPI</span>
+                    <span class="bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold px-2.5 py-1 rounded">AWS</span>
+                    <span class="bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold px-2.5 py-1 rounded">Docker</span>
+                    <span class="bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold px-2.5 py-1 rounded">GitHub Actions</span>
+                    <span class="bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold px-2.5 py-1 rounded">MySQL</span>
                 </div>
             </div>
         </div>
 
         <!-- 2024 한이음 상세 모달 -->
-        <div id="popup-hanium24" class="modal-content bg-white rounded-2xl max-w-lg w-full shadow-2xl relative p-8 hidden animate-[fadeIn_0.2s_ease-out]">
-            <button class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 text-2xl" onclick="closeActiveModal()">&times;</button>
-            <span class="text-xs font-bold text-blue-500 block mb-1">2024 한이음 ICT 멘토링</span>
-            <h3 class="text-2xl font-black text-slate-900 mb-3">AI 체형 분석 스마트 미러</h3>
-            <div class="mb-4 flex items-center justify-between">
-                <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-md">👑 팀장 (Project PM / Server)</span>
-                <a href="https://github.com/mhyeon-kim/SmartMirror" target="_blank" class="inline-flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-3 py-1 rounded-md transition-colors">
+        <div id="popup-hanium24" class="modal-content bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full shadow-2xl relative p-8 hidden animate-[fadeIn_0.2s_ease-out] border dark:border-slate-800 transition-colors duration-300">
+            <button class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-2xl" onclick="closeActiveModal()">&times;</button>
+            <span class="text-xs font-bold text-blue-500 dark:text-blue-400 block mb-1">2024 한이음 ICT 멘토링</span>
+            <h3 class="text-2xl font-black text-slate-900 dark:text-slate-100 mb-3">AI 체형 분석 스마트 미러</h3>
+            <div class="mb-4 flex flex-wrap gap-2 items-center justify-between">
+                <span class="bg-amber-100 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 text-xs font-bold px-3 py-1 rounded-md">👑 팀장 (Project PM / Server)</span>
+                <a href="https://github.com/mhyeon-kim/SmartMirror" target="_blank" class="inline-flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 text-white text-xs font-bold px-3 py-1 rounded-md transition-colors">
                     <i class="fab fa-github"></i> GitHub 저장소
                 </a>
             </div>
-            <p class="text-slate-600 text-sm leading-relaxed mb-6">
-                전면 스마트 디스플레이 모듈과 연동하여 탑재된 카메라를 통해 자세 특징 데이터(Keypoint)를 추적하고 신체 전반의 비대칭 및 틀어짐 지표를 예측하는 AI 하드웨어 플랫폼입니다. 
-                임베디드 내부 리소스 소모 분산을 목표로 Node.js 활용 로컬 게이트웨이 웹서버 및 파이썬 메인 연산 로직을 정교하게 융합했습니다.
+            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6">
+                전면 스마트 디스플레이 모듈과 연동하여 탑재된 카메라를 통해 자세 특징 데이터(Keypoint)를 추적하고 신체 전반의 비대칭 및 틀어짐 지표를 예측하는 AI 하드웨어 플랫폼입니다. <br>
+                임베디드 내부 리소스 소모 분산을 목표로 Node.js 활용 로컬 게이트웨이 웹서버 및 파이썬 메인 연산 로직을 정교하게 융합했습니다. <br>
+                <strong class="text-blue-500 dark:text-blue-400">✨ 공모전 성과:</strong> 한이음 ICT 멘토링 공모전 입선 수상작.
             </p>
             <div>
-                <strong class="text-xs font-bold text-slate-500 block mb-2 uppercase">Core Tech Stack</strong>
+                <strong class="text-xs font-bold text-slate-500 dark:text-slate-400 block mb-2 uppercase">Core Tech Stack</strong>
                 <div class="flex flex-wrap gap-2">
-                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">Python</span>
-                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">OpenCV</span>
-                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">Node.js (Local)</span>
-                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">MariaDB</span>
+                    <span class="bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold px-2.5 py-1 rounded">Python</span>
+                    <span class="bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold px-2.5 py-1 rounded">OpenCV</span>
+                    <span class="bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold px-2.5 py-1 rounded">Node.js (Local)</span>
+                    <span class="bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold px-2.5 py-1 rounded">MariaDB</span>
                 </div>
             </div>
         </div>
 
         <!-- UMC 상세 모달 -->
-        <div id="popup-umc" class="modal-content bg-white rounded-2xl max-w-lg w-full shadow-2xl relative p-8 hidden animate-[fadeIn_0.2s_ease-out]">
-            <button class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 text-2xl" onclick="closeActiveModal()">&times;</button>
-            <span class="text-xs font-bold text-slate-500 block mb-1">연합 IT 동아리</span>
-            <h3 class="text-2xl font-black text-slate-900 mb-3">UMC (Android 앱 개발)</h3>
+        <div id="popup-umc" class="modal-content bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full shadow-2xl relative p-8 hidden animate-[fadeIn_0.2s_ease-out] border dark:border-slate-800 transition-colors duration-300">
+            <button class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-2xl" onclick="closeActiveModal()">&times;</button>
+            <span class="text-xs font-bold text-slate-500 dark:text-slate-400 block mb-1">2023 연합 IT 동아리</span>
+            <h3 class="text-2xl font-black text-slate-900 dark:text-slate-100 mb-3">UMC (Android 앱 개발)</h3>
             <div class="mb-4">
-                <a href="https://github.com/mhyeon-kim/AnDDeul" target="_blank" class="inline-flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-3 py-1 rounded-md transition-colors">
+                <a href="https://github.com/mhyeon-kim/AnDDeul" target="_blank" class="inline-flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 text-white text-xs font-bold px-3 py-1 rounded-md transition-colors">
                     <i class="fab fa-github"></i> GitHub 저장소
                 </a>
             </div>
-            <p class="text-slate-600 text-sm leading-relaxed mb-6">
+            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6">
                 실제 서비스 런칭 단계를 기획부터 디자인, 설계 단계까지 타 직무 지망생들과 공유하며 실무 중심 협업 문화를 익혔습니다. 
                 클라이언트 구조를 직접 구현해 봄으로써 REST API 명세서 구성 시 데이터 타입 처리 방식과 비동기 제어 구조 등 서버 설계에서 반드시 배려해야 할 유의점을 폭넓게 인지할 수 있는 가치 있는 경험이었습니다.
             </p>
             <div>
-                <strong class="text-xs font-bold text-slate-500 block mb-2 uppercase">Core Learning Stack</strong>
+                <strong class="text-xs font-bold text-slate-500 dark:text-slate-400 block mb-2 uppercase">Core Learning Stack</strong>
                 <div class="flex flex-wrap gap-2">
-                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">Kotlin</span>
-                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">Retrofit2</span>
-                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">MVVM Architecture</span>
+                    <span class="bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold px-2.5 py-1 rounded">Kotlin</span>
+                    <span class="bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold px-2.5 py-1 rounded">Retrofit2</span>
+                    <span class="bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold px-2.5 py-1 rounded">MVVM Architecture</span>
                 </div>
             </div>
         </div>
 
         <!-- NPC 상세 모달 -->
-        <div id="popup-npc" class="modal-content bg-white rounded-2xl max-w-lg w-full shadow-2xl relative p-8 hidden animate-[fadeIn_0.2s_ease-out]">
-            <button class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 text-2xl" onclick="closeActiveModal()">&times;</button>
-            <span class="text-xs font-bold text-slate-400 block mb-1">교내 학술 동아리</span>
-            <h3 class="text-2xl font-black text-slate-900 mb-3">NPC 게임 개발 동아리</h3>
+        <div id="popup-npc" class="modal-content bg-white dark:bg-slate-900 rounded-2xl max-w-lg w-full shadow-2xl relative p-8 hidden animate-[fadeIn_0.2s_ease-out] border dark:border-slate-800 transition-colors duration-300">
+            <button class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-2xl" onclick="closeActiveModal()">&times;</button>
+            <span class="text-xs font-bold text-slate-400 dark:text-slate-450 block mb-1">2022 교내 동아리</span>
+            <h3 class="text-2xl font-black text-slate-900 dark:text-slate-100 mb-3">NPC 게임 개발 동아리</h3>
             <div class="mb-4">
-                <a href="https://github.com/mhyeon-kim/Summer_Vacation" target="_blank" class="inline-flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-3 py-1 rounded-md transition-colors">
+                <a href="https://github.com/mhyeon-kim/Summer_Vacation" target="_blank" class="inline-flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 text-white text-xs font-bold px-3 py-1 rounded-md transition-colors">
                     <i class="fab fa-github"></i> GitHub 저장소
                 </a>
             </div>
-            <p class="text-slate-600 text-sm leading-relaxed mb-6">
-                아이디어를 실제 가동 로직으로 구체화하는 순수 객체 지향 게임 개발 엔진을 사용하며 소프트웨어 디자인 패턴(싱글톤, 상태 패턴, 이벤트 트리거링)의 개념을 확립하고 조기에 유용한 활용법을 터득했습니다. 
-                부서 간 소통 효율화를 통해 주 단위 통합 테스트 및 스프린트 빌드 목표 달성을 달성했습니다.
+            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6">
+                아이디어를 실제 가동 로직으로 구체화하는 순수 객체 지향 게임 개발 엔진을 사용하며 소프트웨어 디자인 패턴(싱글톤, 상태 패턴, 이벤트 트리거링)의 개념을 확립하고 조기에 유용한 활용법을 터득했습니다. <br>
+                부서 간 소통 효율화를 통해 주 단위 통합 테스트 및 스프린트 빌드 목표 달성을 달성했습니다. <br>
+                <strong class="text-blue-500 dark:text-blue-400">✨ 공모전 성과:</strong> 교내 소프트웨어 경진대회 최우수상 수상작.
             </p>
             <div>
-                <strong class="text-xs font-bold text-slate-500 block mb-2 uppercase">Core Learning Stack</strong>
+                <strong class="text-xs font-bold text-slate-500 dark:text-slate-400 block mb-2 uppercase">Core Learning Stack</strong>
                 <div class="flex flex-wrap gap-2">
-                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">Unity</span>
-                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">Lua Scripting</span>
-                    <span class="bg-slate-100 border border-slate-200 text-slate-800 text-xs font-semibold px-2.5 py-1 rounded">OOP Patterns</span>
+                    <span class="bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold px-2.5 py-1 rounded">Unity</span>
+                    <span class="bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold px-2.5 py-1 rounded">Lua Scripting</span>
+                    <span class="bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold px-2.5 py-1 rounded">OOP Patterns</span>
                 </div>
             </div>
         </div>
@@ -415,18 +565,55 @@
     <!-- MPA 라우팅 및 팝업 모달 자바스크립트 제어 로직 -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // MPA 구조 시뮬레이션 라우팅 핸들링
+            
+            // 1. 다크 모드 초기 설정 및 이벤트 제어
+            const darkModeToggle = document.getElementById('dark-mode-toggle');
+            const darkModeIcon = document.getElementById('dark-mode-icon');
+            const htmlElement = document.documentElement;
+
+            // 로컬 스토리지에 저장된 값이 있거나 없다면 시스템 설정 검사
+            const savedTheme = localStorage.getItem('theme');
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+                htmlElement.classList.add('dark');
+                if (darkModeIcon) {
+                    darkModeIcon.className = "fas fa-sun text-lg text-yellow-400";
+                }
+            } else {
+                htmlElement.classList.remove('dark');
+                if (darkModeIcon) {
+                    darkModeIcon.className = "fas fa-moon text-lg";
+                }
+            }
+
+            // 다크모드 클릭 스위칭 액션
+            if (darkModeToggle) {
+                darkModeToggle.addEventListener('click', () => {
+                    if (htmlElement.classList.contains('dark')) {
+                        htmlElement.classList.remove('dark');
+                        localStorage.setItem('theme', 'light');
+                        if (darkModeIcon) darkModeIcon.className = "fas fa-moon text-lg";
+                    } else {
+                        htmlElement.classList.add('dark');
+                        localStorage.setItem('theme', 'dark');
+                        if (darkModeIcon) darkModeIcon.className = "fas fa-sun text-lg text-yellow-400";
+                    }
+                });
+            }
+
+            // 2. MPA 구조 시뮬레이션 라우팅 핸들링
             const handleRouting = () => {
                 const hash = window.location.hash || '#home';
                 const currentRoute = hash.replace('#', '');
                 
-                // 1. 모든 가상 페이지를 일단 완전 숨김 처리
+                // 모든 가상 페이지를 일단 완전 숨김 처리
                 document.querySelectorAll('.page-view').forEach(view => {
                     view.classList.add('hidden');
                     view.classList.remove('block');
                 });
                 
-                // 2. 현재 활성화된 hash 라우트 활성화 및 노출
+                // 현재 활성화된 hash 라우트 활성화 및 노출
                 const activeView = document.getElementById(`page-${currentRoute}`);
                 if (activeView) {
                     activeView.classList.remove('hidden');
@@ -434,19 +621,21 @@
                 } else {
                     // 예외 경로일 경우 기본 홈화면 노출
                     const defaultView = document.getElementById('page-home');
-                    defaultView.classList.remove('hidden');
-                    defaultView.classList.add('block');
+                    if (defaultView) {
+                        defaultView.classList.remove('hidden');
+                        defaultView.classList.add('block');
+                    }
                 }
 
-                // 3. 네비게이션 "현재 페이지" 활성 클래스 동적 전환 (2-2 필수 조건)
+                // 네비게이션 "현재 페이지" 활성 클래스 동적 전환 (2-2 필수 조건)
                 document.querySelectorAll('.nav-link').forEach(link => {
                     const routeTarget = link.getAttribute('data-route');
                     if (routeTarget === currentRoute) {
                         // 활성화 스타일 클래스 부여
-                        link.className = "nav-link text-sm font-extrabold text-blue-500 border-b-2 border-blue-500 py-1 transition-colors duration-200";
+                        link.className = "nav-link text-sm font-extrabold text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400 py-1 transition-colors duration-200";
                     } else {
                         // 비활성화 기본 스타일 클래스 부여
-                        link.className = "nav-link text-sm font-semibold text-slate-400 hover:text-slate-200 py-1 transition-colors duration-200";
+                        link.className = "nav-link text-sm font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 py-1 transition-colors duration-200";
                     }
                 });
 
@@ -459,6 +648,39 @@
             // 초기 페이지 로드 시점에 라우팅 1회 강제 실행
             handleRouting();
         });
+
+        // ================= 핵심 기술 스택 인터랙티브 탭 전환 함수 =================
+        function switchSkillTab(category) {
+            // 모든 탭 버튼의 스타일 활성화 해제
+            document.querySelectorAll('.skill-tab-btn').forEach(btn => {
+                btn.className = "skill-tab-btn py-2 px-4 text-xs font-bold border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 tracking-wide mr-1 focus:outline-none transition-all duration-200";
+            });
+
+            // 선택된 특정 카테고리 탭만 하이라이트 활성화
+            const activeBtn = document.getElementById(`tab-btn-${category}`);
+            if (activeBtn) {
+                activeBtn.className = "skill-tab-btn py-2 px-4 text-xs font-bold border-b-2 border-blue-600 text-blue-600 dark:text-blue-400 dark:border-blue-400 tracking-wide mr-1 focus:outline-none transition-all duration-200";
+            }
+
+            // 모든 컨텐츠 카드를 페이드아웃 후 보이지 않게 처리
+            document.querySelectorAll('.skill-tab-pane').forEach(pane => {
+                pane.classList.add('hidden');
+                pane.classList.remove('block', 'opacity-100');
+                pane.classList.add('opacity-0');
+            });
+
+            // 지정된 컨텐츠 카드만 부드럽게 노출
+            const targetPane = document.getElementById(`tab-pane-${category}`);
+            if (targetPane) {
+                targetPane.classList.remove('hidden');
+                targetPane.classList.add('block');
+                // 디스플레이 렌더 시간 텀을 위해 브라우저 프레임 디스패치 적용
+                setTimeout(() => {
+                    targetPane.classList.remove('opacity-0');
+                    targetPane.classList.add('opacity-100');
+                }, 10);
+            }
+        }
 
         // ================= 모달 팝업 액션 함수 =================
         const overlay = document.getElementById('modal-overlay');
